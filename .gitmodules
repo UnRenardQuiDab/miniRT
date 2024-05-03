@@ -1,0 +1,9 @@
+[submodule "libs/vector_c"]
+	path = libs/vector_c
+	url = git@github.com:UnRenardQuiDab/vector_c.git
+[submodule "libs/libft"]
+	path = libs/libft
+	url = git@github.com:UnRenardQuiDab/libft.git
+[submodule "libs/minilibx/minilibx-linux"]
+	path = libs/minilibx/minilibx-linux
+	url = git@github.com:42Paris/minilibx-linux.git
