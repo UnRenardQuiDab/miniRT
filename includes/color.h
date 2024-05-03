@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 17:52:47 by lcottet           #+#    #+#             */
+/*   Created: 2024/05/03 18:40:10 by lcottet           #+#    #+#             */
 /*   Updated: 2024/05/03 18:55:53 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#ifndef COLOR_H
+# define COLOR_H
 
-#include "engine.h"
+# include <stdint.h>
 
-int	main(int argc, char **argv)
+typedef union u_color
 {
-	if (argc < 2)
+	uint32_t	color;
+	struct
 	{
-		printf("Usage: %s <filename>\n", argv[0]);
-		return (1);
-	}
-	return (0);
-}
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
+		uint8_t	a;
+	};
+}	t_color;
+
+#endif
