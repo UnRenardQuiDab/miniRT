@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/03 18:55:53 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/06 18:39:25 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,28 +25,65 @@
 # define OBJECT_SPHERE "sp"
 # define OBJECT_CYLINDER "cy"
 
-typedef char*	t_obj_type;
+# define FAILURE 1
+# define SUCCESS 0
 
-typedef struct s_3dvector
+# define TYPE_COUNT 6
+
+typedef struct s_engine t_engine;
+
+typedef	struct s_obj_type
+{
+	size_t	index;
+	char	*name;
+	size_t	args_count;
+	uint8_t	(*init)(t_engine *engine, char **);
+}	t_obj_type;
+
+typedef struct s_vec3
 {
 	float	x;
 	float	y;
 	float	z;
-}	t_3dvector;
+}	t_vec3;
 
 typedef struct s_camera
 {
-	t_3dvector	position;
-	t_3dvector	orientation;
+	t_vec3		position;
+	t_vec3		orientation;
 	uint8_t		fov;
 }				t_camera;
+
+typedef struct s_sphere
+{
+	float	diameter;
+}	t_sphere;
+
+typedef struct s_cylinder
+{
+	float	diameter;
+	float	height;
+}	t_cylinder;
+
+typedef struct s_light
+{
+	float	brightness;
+}	t_light;
+
+typedef union u_specific
+{
+	t_sphere	sphere;
+	t_cylinder	cylinder;
+	t_light		light;
+}	t_specific;
 
 typedef struct s_object
 {
 	t_obj_type	type;
-	t_3dvector	position;
+	t_vec3		position;
+	t_vec3		rotation;
 	t_color		color;
-	void		*specific;
+	t_specific	specific;
 }	t_object;
 
 typedef struct t_ambient
@@ -57,7 +94,8 @@ typedef struct t_ambient
 
 typedef struct s_engine
 {
-	t_vector		*objects;
+	t_obj_type		types[TYPE_COUNT];
+	t_vector		objects;
 	t_camera		camera;
 	t_ambient		ambient;
 }				t_engine;

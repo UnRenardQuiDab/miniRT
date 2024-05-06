@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 18:40:10 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/06 15:23:04 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/06 16:17:07 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/06 18:56:35 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#include "libft.h"
+#include "engine.h"
 
-# include <stdint.h>
-
-typedef union u_color
+uint8_t init_camera(t_engine *engine, char **args)
 {
-	uint32_t	color;
-	struct
-	{
-		uint8_t	b;
-		uint8_t	g;
-		uint8_t	r;
-		uint8_t	a;
-	};
-}	t_color;
-
-#endif
+	engine->camera.fov = ft_atoi(args[1]);
+	if (ft_atov3(&engine->camera.orientation, args[2]) == FAILURE)
+		return (FAILURE);
+	if (ft_atov3(&engine->camera.position, args[3]) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}

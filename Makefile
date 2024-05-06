@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/03 18:20:19 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/06 17:53:22 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,13 @@ SRCS = main.c
 
 ENGINE_SRCS = 
 
+OBJECTS_SRCS =	camera.c ambient.c cylindre.c light.c plane.c sphere.c
+
 DISPLAY_SRCS =	
 
-FILE_SRCS =
+FILE_SRCS = parsing.c init.c
 
-SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c)
+SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c) $(OBJECTS_SRCS:%.c=objects/%.c)
 
 OUTDIR = obj
 

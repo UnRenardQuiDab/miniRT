@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.h                                            :+:      :+:    :+:   */
+/*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 18:40:10 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/06 15:23:04 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/06 16:22:41 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLOR_H
-# define COLOR_H
+#ifndef OBJECT_H
+# define OBJECT_H
 
-# include <stdint.h>
+# include "engine.h"
 
-typedef union u_color
-{
-	uint32_t	color;
-	struct
-	{
-		uint8_t	b;
-		uint8_t	g;
-		uint8_t	r;
-		uint8_t	a;
-	};
-}	t_color;
+uint8_t init_ambient(t_engine *engine, char **args);
+uint8_t init_camera(t_engine *engine, char **args);
+uint8_t init_light(t_engine *engine, char **args);
+uint8_t init_cylinder(t_engine *engine, char **args);
+uint8_t init_plane(t_engine *engine, char **args);
+uint8_t init_sphere(t_engine *engine, char **args);
 
 #endif
