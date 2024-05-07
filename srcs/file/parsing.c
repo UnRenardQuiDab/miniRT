@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:39:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/06 18:57:48 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:27:56 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #include <stdlib.h>
 
 #include "engine.h"
-#include "error.h"
-#include "vector.h"
+#include "file.h"
+#include "ft_error.h"
 #include "libft.h"
 #include "get_next_line.h"
 
-uint8_t check_line_type(t_engine *engine, char **split_line)
+static uint8_t	check_line_type(t_engine *engine, char **split_line)
 {
 	size_t	i;
 
@@ -30,17 +30,19 @@ uint8_t check_line_type(t_engine *engine, char **split_line)
 	{
 		if (ft_strcmp(engine->types[i].name, split_line[0]) == 0)
 		{
-			if (engine->types[i].args_count != ft_arrlen(split_line, sizeof(char *)))
-				return (custom_error("Invalid arg count for type ", engine->types[i].name));
+			if (engine->types[i].args_count
+				!= ft_arrlen(split_line, sizeof(char *)))
+				return (custom_error(engine->types[i].name, ERR_ARGS_COUNT));
 			if (engine->types[i].init(engine, split_line) != 0)
 				return (FAILURE);
+			return (SUCCESS);
 		}
 		i++;
 	}
-	return (SUCCESS);
+	return (custom_error(split_line[0], ERR_NOT_FOUND));
 }
 
-uint8_t	split_line(t_engine *engine, char *line)
+static uint8_t	split_line(t_engine *engine, char *line)
 {
 	char	**split_line;
 	uint8_t	res;
@@ -61,11 +63,21 @@ uint8_t	split_line(t_engine *engine, char *line)
 	return (res);
 }
 
+static void	remove_nl(char *str)
+{
+	size_t	ln;
+
+	ln = ft_strlen(str);
+	if (str[ln - 1] == '\n')
+		str[ln - 1] = '\0';
+}
+
 uint8_t	parsing(t_engine *engine, char *file_name)
 {
 	int		fd;
 	char	*line;
 
+	init_engine(engine);
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 	{
@@ -75,6 +87,7 @@ uint8_t	parsing(t_engine *engine, char *file_name)
 	line = get_next_line(fd);
 	while (line)
 	{
+		remove_nl(line);
 		if (split_line(engine, line) != 0)
 		{
 			free(line);

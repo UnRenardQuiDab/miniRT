@@ -6,23 +6,30 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:16:26 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/06 18:41:36 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:18:50 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 #include "object.h"
-
 #include "libft.h"
 
-void init_type(t_engine *engine)
+static void	init_type(t_engine *engine)
 {
 	ft_memcpy(engine->types, (t_obj_type []){
-		{0, OBJECT_CAMERA, 4, init_camera},
-		{1, OBJECT_AMBIENT, 3, init_ambient},
-		{2, OBJECT_LIGHT, 4, init_light},
-		{3, OBJECT_CYLINDER, 6, init_cylinder},
-		{4, OBJECT_PLANE, 4, init_plane},
-		{5, OBJECT_SPHERE, 4, init_sphere}
+	{CAMERA, OBJECT_CAMERA, 4, init_camera},
+	{AMBIENT, OBJECT_AMBIENT, 3, init_ambient},
+	{LIGHT, OBJECT_LIGHT, 4, init_light},
+	{SPHERE, OBJECT_SPHERE, 4, init_sphere},
+	{PLANE, OBJECT_PLANE, 4, init_plane},
+	{CYLINDER, OBJECT_CYLINDER, 6, init_cylinder}
 	}, sizeof(t_obj_type) * TYPE_COUNT);
+}
+
+void	init_engine(t_engine *engine)
+{
+	init_type(engine);
+	engine->camera.fov = -1;
+	engine->ambient.lighting = -1.0f;
+	vector_init(&engine->objects, sizeof(t_object));
 }

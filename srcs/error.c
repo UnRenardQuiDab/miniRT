@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:48:29 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/06 18:46:05 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 14:16:11 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 uint8_t	err(char *err)
 {
-	printf("Error\n%s :%s\n", err, strerr(errno));
+	printf("Error\n%s :%s\n", err, strerror(errno));
 	return (FAILURE);
 }
 

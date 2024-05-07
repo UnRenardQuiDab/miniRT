@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/06 18:39:25 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:11:43 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # include "vector.h"
 # include "color.h"
+# include "display.h"
 
 # define OBJECT_CAMERA "C"
 # define OBJECT_AMBIENT "A"
@@ -30,28 +31,42 @@
 
 # define TYPE_COUNT 6
 
-typedef struct s_engine t_engine;
+typedef struct s_engine	t_engine;
 
-typedef	struct s_obj_type
+typedef enum e_type_index
 {
-	size_t	index;
-	char	*name;
-	size_t	args_count;
-	uint8_t	(*init)(t_engine *engine, char **);
+	CAMERA,
+	AMBIENT,
+	LIGHT,
+	SPHERE,
+	PLANE,
+	CYLINDER
+}	t_type_index;
+
+typedef struct s_obj_type
+{
+	t_type_index	index;
+	char			*name;
+	size_t			args_count;
+	uint8_t			(*init)(t_engine * engine, char **args);
 }	t_obj_type;
 
-typedef struct s_vec3
+typedef union u_vec3
 {
-	float	x;
-	float	y;
-	float	z;
+	struct
+	{
+		float	x;
+		float	y;
+		float	z;
+	};
+	float	arr[3];
 }	t_vec3;
 
 typedef struct s_camera
 {
 	t_vec3		position;
-	t_vec3		orientation;
-	uint8_t		fov;
+	t_vec3		rotation;
+	int32_t		fov;
 }				t_camera;
 
 typedef struct s_sphere
@@ -79,7 +94,7 @@ typedef union u_specific
 
 typedef struct s_object
 {
-	t_obj_type	type;
+	t_obj_type	*type;
 	t_vec3		position;
 	t_vec3		rotation;
 	t_color		color;
@@ -89,7 +104,7 @@ typedef struct s_object
 typedef struct t_ambient
 {
 	t_color	color;
-	float	ratio;
+	float	lighting;
 }	t_ambient;
 
 typedef struct s_engine
@@ -99,5 +114,10 @@ typedef struct s_engine
 	t_camera		camera;
 	t_ambient		ambient;
 }				t_engine;
+
+void	mlx_hooks(t_mlx *mlx);
+void	put_pixel(t_img *img, int x, int y, int color);
+void	mlx_destroy_mlx(t_mlx *mlx);
+int		mlx_init_mlx(t_mlx *mlx);
 
 #endif

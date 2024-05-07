@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 18:40:10 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/06 15:23:04 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 13:55:11 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef union u_color
 		uint8_t	r;
 		uint8_t	a;
 	};
+	uint8_t		arr[4];
 }	t_color;
 
 #endif
