@@ -6,7 +6,7 @@
 #    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/07 17:26:18 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/05/07 21:41:24 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,13 @@ ENGINE_SRCS = mlx.c
 
 OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c
 
-DISPLAY_SRCS =	
+DISPLAY_SRCS =	render.c
+
+VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c
 
 FILE_SRCS = parsing.c init.c conversion.c range.c
 
-SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c) $(OBJECTS_SRCS:%.c=objects/%.c)
+SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c) $(OBJECTS_SRCS:%.c=objects/%.c) $(VEC_SRCS:%.c=vec/%.c)
 
 OUTDIR = obj
 
@@ -78,7 +80,7 @@ $(VECTOR): FORCE
 	make -C $(LIBS_DIR)/vector_c
 
 run: $(NAME)
-	./$(NAME) scenes/subject.rt
+	./$(NAME) scenes/basic.rt
 	
 valgrind: $(NAME)
 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)

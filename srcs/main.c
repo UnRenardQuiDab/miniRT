@@ -6,11 +6,12 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:52:47 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/07 17:28:23 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:06:36 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "mlx.h"
 #include "file.h"
 #include "engine.h"
 #include "display.h"
@@ -19,7 +20,6 @@
 int	main(int argc, char **argv)
 {
 	t_engine	engine;
-	t_mlx		mlx;
 
 	if (argc < 2)
 		return (custom_error(argv[0], ERR_USAGE));
@@ -28,13 +28,15 @@ int	main(int argc, char **argv)
 		vector_free(&engine.objects);
 		return (FAILURE);
 	}
-	if (mlx_init_mlx(&mlx) == FAILURE)
+	if (mlx_init_mlx(&engine.mlx) == FAILURE)
 	{
 		vector_free(&engine.objects);
-		mlx_destroy_mlx(&mlx);
+		mlx_destroy_mlx(&engine.mlx);
 		return (custom_error(argv[0], ERR_MLX_INIT));
 	}
+	render(&engine);
+	mlx_loop(engine.mlx.mlx);
 	vector_free(&engine.objects);
-	mlx_destroy_mlx(&mlx);
+	mlx_destroy_mlx(&engine.mlx);
 	return (SUCCESS);
 }

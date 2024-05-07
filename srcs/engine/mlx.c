@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 17:30:20 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:06:05 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	mlx_init_mlx(t_mlx *mlx)
 	if (!mlx->img.addr)
 		return (FAILURE);
 	mlx_hooks(mlx);
-	mlx_loop(mlx->mlx);
 	return (SUCCESS);
 }
 

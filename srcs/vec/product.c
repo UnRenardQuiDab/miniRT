@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   product.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 20:59:47 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/07 21:13:35 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/07 21:15:06 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
 
-# define WIDTH 1920
-# define HEIGHT 1080
-# define NAME "miniRT (lcottet & bwisniew)"
+#include "vec.h"
 
-typedef struct s_engine	t_engine;
-typedef struct s_img
+t_vec3	vec3_product(t_vec3 a, t_vec3 b)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
-typedef struct s_mlx
-{
-	void		*mlx;
-	void		*win;
-	t_img		img;
-}	t_mlx;
+	t_vec3	result;
 
-void	render(t_engine *engine);
-
-#endif
+	result.x = a.y * b.z - a.z * b.y;
+	result.y = a.z * b.x - a.x * b.z;
+	result.z = a.x * b.y - a.y * b.x;
+	return (result);
+}

@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 17:11:43 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/07 20:30:14 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "vector.h"
 # include "color.h"
 # include "display.h"
+# include "vec.h"
 
 # define OBJECT_CAMERA "C"
 # define OBJECT_AMBIENT "A"
@@ -50,17 +51,6 @@ typedef struct s_obj_type
 	size_t			args_count;
 	uint8_t			(*init)(t_engine * engine, char **args);
 }	t_obj_type;
-
-typedef union u_vec3
-{
-	struct
-	{
-		float	x;
-		float	y;
-		float	z;
-	};
-	float	arr[3];
-}	t_vec3;
 
 typedef struct s_camera
 {
@@ -113,6 +103,7 @@ typedef struct s_engine
 	t_vector		objects;
 	t_camera		camera;
 	t_ambient		ambient;
+	t_mlx			mlx;
 }				t_engine;
 
 void	mlx_hooks(t_mlx *mlx);

@@ -1,38 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   substract.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 20:59:47 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/07 21:15:46 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/07 21:31:21 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#include "vec.h"
 
-# define WIDTH 1920
-# define HEIGHT 1080
-# define NAME "miniRT (lcottet & bwisniew)"
-
-typedef struct s_engine	t_engine;
-typedef struct s_img
+t_vec3	vec3_substract(t_vec3 a, t_vec3 b)
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
-typedef struct s_mlx
-{
-	void		*mlx;
-	void		*win;
-	t_img		img;
-}	t_mlx;
-
-void	render(t_engine *engine);
-
-#endif
+	return ((t_vec3){{a.x - b.x, a.y - b.y, a.z - b.z}});
+}
