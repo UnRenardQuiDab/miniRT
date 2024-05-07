@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 17:52:47 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/07 17:28:23 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/06 16:20:44 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/07 16:26:14 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "file.h"
 #include "engine.h"
-#include "display.h"
 #include "ft_error.h"
+#include "file.h"
 
-int	main(int argc, char **argv)
+uint8_t	init_sphere(t_engine *engine, char **args)
 {
-	t_engine	engine;
-	t_mlx		mlx;
+	t_object	obj;
 
-	if (argc < 2)
-		return (custom_error(argv[0], ERR_USAGE));
-	if (parsing(&engine, argv[1]) == FAILURE)
-	{
-		vector_free(&engine.objects);
+	obj.type = &engine->types[SPHERE];
+	if (ft_atov3(&obj.position, args[1], rangef(FLT_MIN, FLT_MAX)) == FAILURE)
 		return (FAILURE);
-	}
-	if (mlx_init_mlx(&mlx) == FAILURE)
-	{
-		vector_free(&engine.objects);
-		mlx_destroy_mlx(&mlx);
-		return (custom_error(argv[0], ERR_MLX_INIT));
-	}
-	vector_free(&engine.objects);
-	mlx_destroy_mlx(&mlx);
+	if (str_to_decimal(&obj.specific.sphere.diameter, args[2],
+			FLOAT, rangef(0, FLT_MAX)) == FAILURE)
+		return (FAILURE);
+	if (ft_atoc(&obj.color, args[3]) == FAILURE)
+		return (FAILURE);
+	if (vector_add(&engine->objects, &obj) != 0)
+		return (err(obj.type->name));
 	return (SUCCESS);
 }

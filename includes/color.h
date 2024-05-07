@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   color.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 17:05:15 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/03 18:40:10 by lcottet           #+#    #+#             */
+/*   Updated: 2024/05/07 13:55:11 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#ifndef COLOR_H
+# define COLOR_H
 
-# define WIDTH 1920
-# define HEIGHT 1080
-# define NAME "miniRT (lcottet & bwisniew)"
+# include <stdint.h>
 
-typedef struct s_img
+typedef union u_color
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
-typedef struct s_mlx
-{
-	void		*mlx;
-	void		*win;
-	t_img		img;
-}	t_mlx;
+	uint32_t	color;
+	struct
+	{
+		uint8_t	b;
+		uint8_t	g;
+		uint8_t	r;
+		uint8_t	a;
+	};
+	uint8_t		arr[4];
+}	t_color;
 
 #endif

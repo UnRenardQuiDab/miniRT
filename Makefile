@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/03 18:20:19 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/07 17:26:18 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,15 +16,17 @@ C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP
 
 SRCS_DIR = srcs
 
-SRCS = main.c
+SRCS = main.c error.c
 
-ENGINE_SRCS = 
+ENGINE_SRCS = mlx.c
+
+OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c
 
 DISPLAY_SRCS =	
 
-FILE_SRCS =
+FILE_SRCS = parsing.c init.c conversion.c range.c
 
-SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c)
+SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c) $(OBJECTS_SRCS:%.c=objects/%.c)
 
 OUTDIR = obj
 
@@ -33,8 +35,6 @@ OBJ = $(SRCS:%.c=$(OUTDIR)/%.o)
 DEP = $(OBJ:%.o=%.d)
 
 LIBS_DIR = libs
-
-INCLUDE = includes $(LIBS_DIR)/libft/includes $(LIBS_DIR)/vector_c/includes
 
 NAME = miniRT
 
@@ -45,6 +45,8 @@ VECTOR = $(LIBS_DIR)/vector_c/libvct.a
 GRAPHIC_FLAGS = -lm -lXext -lX11
 
 MINILIBX_FOLDER = $(LIBS_DIR)/minilibx/
+
+INCLUDE = includes $(MINILIBX_FOLDER) $(LIBS_DIR)/libft/includes $(LIBS_DIR)/vector_c/includes
 
 OS	= $(shell uname -s)
 
@@ -76,7 +78,7 @@ $(VECTOR): FORCE
 	make -C $(LIBS_DIR)/vector_c
 
 run: $(NAME)
-	./$(NAME)
+	./$(NAME) scenes/subject.rt
 	
 valgrind: $(NAME)
 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)

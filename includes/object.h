@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 17:05:15 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/07 13:57:58 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#ifndef OBJECT_H
+# define OBJECT_H
 
-# define WIDTH 1920
-# define HEIGHT 1080
-# define NAME "miniRT (lcottet & bwisniew)"
+# include "engine.h"
 
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
-typedef struct s_mlx
-{
-	void		*mlx;
-	void		*win;
-	t_img		img;
-}	t_mlx;
+uint8_t	init_ambient(t_engine *engine, char **args);
+uint8_t	init_camera(t_engine *engine, char **args);
+uint8_t	init_light(t_engine *engine, char **args);
+uint8_t	init_cylinder(t_engine *engine, char **args);
+uint8_t	init_plane(t_engine *engine, char **args);
+uint8_t	init_sphere(t_engine *engine, char **args);
 
 #endif
