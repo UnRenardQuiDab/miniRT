@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 20:59:47 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/08 22:39:16 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1000
+# define HEIGHT 1000
 # define NAME "miniRT (lcottet & bwisniew)"
 
 typedef struct s_engine	t_engine;

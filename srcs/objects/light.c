@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:20:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 16:26:19 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:01:35 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ uint8_t	init_light(t_engine *engine, char **args)
 		return (FAILURE);
 	if (ft_atoc(&obj.color, args[3]) == FAILURE)
 		return (FAILURE);
-	if (vector_add(&engine->objects, &obj) != 0)
+	if (vector_add(&engine->lights, &obj) != 0)
 		return (err(obj.type->name));
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:52:47 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/07 18:06:36 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:02:32 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int argc, char **argv)
 	render(&engine);
 	mlx_loop(engine.mlx.mlx);
 	vector_free(&engine.objects);
+	vector_free(&engine.lights);
 	mlx_destroy_mlx(&engine.mlx);
 	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/07 21:41:24 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/05/08 22:45:29 by lcottet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,13 @@ SRCS_DIR = srcs
 
 SRCS = main.c error.c
 
-ENGINE_SRCS = mlx.c
+ENGINE_SRCS = mlx.c ray.c
 
 OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c
 
 DISPLAY_SRCS =	render.c
 
-VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c
+VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c reflect.c color.c
 
 FILE_SRCS = parsing.c init.c conversion.c range.c
 
@@ -56,7 +56,7 @@ ifeq ($(OS), Linux)
 	MINILIBX_FOLDER = $(LIBS_DIR)/minilibx/minilibx-linux
 endif
 ifeq ($(OS), Darwin)
-	MINILIBX_PATH		=	lib/minilibx_opengl/
+	MINILIBX_FOLDER		=	$(LIBS_DIR)/minilibx/minilibx_opengl/
 endif
 
 MINILIBX = $(MINILIBX_FOLDER)/libmlx.a

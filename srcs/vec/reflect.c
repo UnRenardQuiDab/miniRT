@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multiply.c                                         :+:      :+:    :+:   */
+/*   reflect.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 21:15:46 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/08 19:59:31 by lcottet          ###   ########.fr       */
+/*   Created: 2024/05/08 21:52:05 by lcottet           #+#    #+#             */
+/*   Updated: 2024/05/08 22:31:22 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
 
-t_vec3	vec3_multiply(t_vec3 a, float b)
+// w = v - 2 * (v ∙ n) * n
+t_vec3	vec3_reflect(t_vec3 incident, t_vec3 normal)
 {
-	return ((t_vec3){{a.x * b, a.y * b, a.z * b}});
+	t_vec3	reflected;
+
+	reflected = vec3_substract(incident, vec3_multiply(normal, 2.0f * vec3_dot(incident, normal)));
+	return (reflected);
 }

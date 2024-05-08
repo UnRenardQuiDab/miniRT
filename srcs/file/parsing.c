@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:39:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 17:27:56 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:19:12 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ uint8_t	parsing(t_engine *engine, char *file_name)
 	while (line)
 	{
 		remove_nl(line);
-		if (split_line(engine, line) != 0)
+		if (line[0] != '#' && split_line(engine, line) != 0)
 		{
 			free(line);
 			return (FAILURE);

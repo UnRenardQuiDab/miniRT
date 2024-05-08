@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:16:26 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 16:18:50 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:10:29 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void	init_engine(t_engine *engine)
 	engine->camera.fov = -1;
 	engine->ambient.lighting = -1.0f;
 	vector_init(&engine->objects, sizeof(t_object));
+	vector_init(&engine->lights, sizeof(t_object));
 }
