@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/08 22:32:20 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/09 19:12:55 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
 	payload.world_position = vec3_add(origin,
 			vec3_multiply(ray.direction, payload.hit_distance));
 	payload.world_normal = payload.object->get_normal(payload.object,
-			payload.world_position);
+			ray, payload);
 
 	payload.world_position = vec3_add(payload.world_position, payload.object->position);
 	return (payload);

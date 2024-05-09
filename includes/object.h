@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/08 17:36:51 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/09 19:12:42 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 # define OBJECT_SPHERE "sp"
 # define OBJECT_CYLINDER "cy"
 
-typedef struct s_engine	t_engine;
-typedef struct s_ray	t_ray;
+typedef struct s_engine			t_engine;
+typedef struct s_ray			t_ray;
+typedef struct s_hit_payload	t_hit_payload;
 
 typedef enum e_type_index
 {
@@ -68,7 +69,7 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-	float	diameter;
+	float	radius;
 }	t_sphere;
 
 typedef struct s_cylinder
@@ -92,7 +93,7 @@ typedef struct s_object
 	t_color		color;
 	t_specific	specific;
 	float		(*get_hit_distance)(struct s_object *self, t_ray ray);
-	t_vec3		(*get_normal)(struct s_object *self, t_vec3 hit_pos);
+	t_vec3		(*get_normal)(struct s_object *self, t_ray ray, t_hit_payload payload);
 }	t_object;
 
 uint8_t	init_ambient(t_engine *engine, char **args);

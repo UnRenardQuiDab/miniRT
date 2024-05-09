@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/08 22:53:20 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/09 19:37:05 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 	float			multiplier;
 	size_t			i;
 	size_t			j;
-	float			biggest_light;
 
 	ray.origin = engine->camera.position;
 	ray.direction = (t_vec3){{
@@ -44,20 +43,30 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 		payload = trace_ray(engine, ray);
 		if (payload.hit_distance == -1)
 			break;
-		biggest_light = 0;
+		t_vec3	light_color = vec3_multiply(color_to_vec3(engine->ambient.color), engine->ambient.lighting);
 		j = 0;
 		while (j < engine->lights.len)
 		{
 			t_vec3 light_dir = vec3_substract(payload.world_position, ((t_object *)engine->lights.tab)[j].position);
 			light_dir = vec3_normalize(light_dir);
-			float light = vec3_dot(payload.world_normal, vec3_multiply(light_dir, -1.0)) * ((t_object *)engine->lights.tab)[j].specific.light.brightness;
-			if (light > biggest_light)
-				biggest_light = light;
+			if (trace_ray(engine, (t_ray){
+				vec3_add(payload.world_position, vec3_multiply(payload.world_normal, 0.0001f)),
+				vec3_multiply(light_dir, -1.0f)
+			}).hit_distance != -1)
+			{
+				j++;
+				continue;
+			}
+			float light = vec3_dot(payload.world_normal, vec3_multiply(light_dir, -1.0f * ((t_object *)engine->lights.tab)[j].specific.light.brightness) );
+			if (light < 0)
+				light = 0;
+			light_color = vec3_add(light_color, vec3_multiply(color_to_vec3(((t_object *)engine->lights.tab)[j].color), light));
 			j++;
 		}
-		t_vec3	obj_color;
-		obj_color = vec3_multiply(color_to_vec3(payload.object->color), biggest_light);
-		color = vec3_add(color, vec3_multiply(obj_color, multiplier));
+		light_color.x *= color_to_vec3(payload.object->color).x;
+		light_color.y *= color_to_vec3(payload.object->color).y;
+		light_color.z *= color_to_vec3(payload.object->color).z;
+		color = vec3_add(color, vec3_multiply(light_color, multiplier));
 		ray.direction = vec3_reflect(ray.direction, payload.world_normal);
 		ray.origin = vec3_add(payload.world_position, vec3_multiply(payload.world_normal, 0.0001f));
 		multiplier *= 0.7f;

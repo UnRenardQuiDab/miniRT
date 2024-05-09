@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/08 22:56:53 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/09 19:41:08 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ENGINE_H
 
 # include <stdint.h>
+# include <stdbool.h>
 
 # include "object.h"
 # include "vector.h"
@@ -21,7 +22,7 @@
 # include "display.h"
 # include "vec.h"
 
-# define BOUNCES 10
+# define BOUNCES 2
 
 # define FAILURE 1
 # define SUCCESS 0
