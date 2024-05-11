@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/09 19:41:08 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/11 07:55:53 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "display.h"
 # include "vec.h"
 
-# define BOUNCES 2
+# define BOUNCES 1
 
 # define FAILURE 1
 # define SUCCESS 0
@@ -54,10 +54,10 @@ typedef struct s_engine
 	t_mlx			mlx;
 }				t_engine;
 
-void	mlx_hooks(t_mlx *mlx);
-void	put_pixel(t_img *img, int x, int y, int color);
-void	mlx_destroy_mlx(t_mlx *mlx);
-int		mlx_init_mlx(t_mlx *mlx);
+void			mlx_hooks(t_mlx *mlx);
+void			put_pixel(t_img *img, int x, int y, int color);
+void			mlx_destroy_mlx(t_mlx *mlx);
+int				mlx_init_mlx(t_mlx *mlx);
 
 t_hit_payload	trace_ray(t_engine *engine, t_ray ray);
 

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/09 19:37:05 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/11 07:05:20 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "display.h"
 #include "engine.h"
 #include "mlx.h"
+#include "camera.h"
 #include <stddef.h>
 #include <math.h>
 
@@ -28,12 +29,30 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 	size_t			i;
 	size_t			j;
 
+	pos.x = (1.0f - pos.x / WIDTH) * 2.0f -1.0f;
+	pos.y = (1.0f - pos.y / HEIGHT) * 2.0f -1.0f;
+	t_vec4 target = mat4vec4_product((t_vec4){{
+		pos.x, pos.y, 1, 1
+	}}, mat4_inverse(engine->camera.projection));
+	t_vec3 ray_dir_norm = vec3_normalize(vec3_multiply((t_vec3){{target.x, target.y, target.z}}, 1 / target.w));
+	t_vec4 ray_dir_tmp = mat4vec4_product((t_vec4){{
+		ray_dir_norm.x,
+		ray_dir_norm.y,
+		ray_dir_norm.z,
+		0.0f
+	}},mat4_inverse(engine->camera.view));
+	ray.direction = (t_vec3)
+	{{
+		ray_dir_tmp.x,
+		ray_dir_tmp.y,
+		ray_dir_tmp.z
+	}};
 	ray.origin = engine->camera.position;
-	ray.direction = (t_vec3){{
+	/*ray.direction = (t_vec3){{
 		pos.x,
 		pos.y,
 		-1.0f
-	}};
+	}};*/
 	ray.direction = vec3_normalize(ray.direction);
 	color = (t_vec3){{0, 0, 0}};
 	multiplier = 1.0f;
@@ -47,13 +66,15 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 		j = 0;
 		while (j < engine->lights.len)
 		{
-			t_vec3 light_dir = vec3_substract(payload.world_position, ((t_object *)engine->lights.tab)[j].position);
-			light_dir = vec3_normalize(light_dir);
-			if (trace_ray(engine, (t_ray){
+			t_vec3 rel_pos = vec3_substract(payload.world_position, ((t_object *)engine->lights.tab)[j].position);
+			t_vec3 light_dir = vec3_normalize(rel_pos);
+			t_hit_payload light_payload = trace_ray(engine, (t_ray){
 				vec3_add(payload.world_position, vec3_multiply(payload.world_normal, 0.0001f)),
 				vec3_multiply(light_dir, -1.0f)
-			}).hit_distance != -1)
+			});
+			if (light_payload.hit_distance != -1 && vec3_dist_sqr(payload.world_position, ((t_object *)engine->lights.tab)[j].position) > light_payload.hit_distance * light_payload.hit_distance)
 			{
+				//color = color_to_vec3(light_payload.object->color);
 				j++;
 				continue;
 			}
@@ -78,23 +99,16 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 void	render(t_engine *engine)
 {
 	t_vec2	pos;
-	float	aspect_ratio;
 
-	aspect_ratio = WIDTH / (float) HEIGHT;
 	pos.y = 0;
-	float	theta = engine->camera.fov * M_PI / 180;
-	float	h = tan(theta / 2);
-	
+	project_camera(&engine->camera);
 	while (pos.y < HEIGHT)
 	{
 		pos.x = 0;
 		while (pos.x < WIDTH)
 		{	
 			put_pixel(&engine->mlx.img, pos.x, pos.y,
-				get_pixel_color(engine, (t_vec2){{
-					((pos.x / WIDTH) * 2.0f - 1.0f) * aspect_ratio * h,
-					(1.0f - 2.0f * pos.y / HEIGHT) * h}}
-					).color);
+				get_pixel_color(engine, pos).color);
 			pos.x++;
 		}
 		pos.y++;

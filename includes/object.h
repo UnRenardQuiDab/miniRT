@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/09 19:12:42 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/11 05:42:50 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # include "color.h"
 # include "vec.h"
+# include "matrix.h"
+# include "camera.h"
 
 # define TYPE_COUNT 6
 
@@ -30,6 +32,7 @@
 typedef struct s_engine			t_engine;
 typedef struct s_ray			t_ray;
 typedef struct s_hit_payload	t_hit_payload;
+typedef struct s_mat4			t_mat4;
 
 typedef enum e_type_index
 {
@@ -48,13 +51,6 @@ typedef struct s_obj_type
 	size_t			args_count;
 	uint8_t			(*init)(t_engine * engine, char **args);
 }	t_obj_type;
-
-typedef struct s_camera
-{
-	t_vec3		position;
-	t_vec3		rotation;
-	int32_t		fov;
-}				t_camera;
 
 typedef struct t_ambient
 {
@@ -93,7 +89,8 @@ typedef struct s_object
 	t_color		color;
 	t_specific	specific;
 	float		(*get_hit_distance)(struct s_object *self, t_ray ray);
-	t_vec3		(*get_normal)(struct s_object *self, t_ray ray, t_hit_payload payload);
+	t_vec3		(*get_normal)(struct s_object * self,
+		t_ray ray, t_hit_payload payload);
 }	t_object;
 
 uint8_t	init_ambient(t_engine *engine, char **args);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/09 19:12:55 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/11 05:39:02 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
 			vec3_multiply(ray.direction, payload.hit_distance));
 	payload.world_normal = payload.object->get_normal(payload.object,
 			ray, payload);
-
-	payload.world_position = vec3_add(payload.world_position, payload.object->position);
+	payload.world_position = vec3_add(payload.world_position,
+			payload.object->position);
 	return (payload);
 }
 
@@ -37,13 +37,14 @@ t_hit_payload	trace_ray(t_engine *engine, t_ray ray)
 	t_hit_payload	payload;
 	size_t			i;
 	float			current_dist;
+	t_object		*obj;
 
 	payload.hit_distance = FLT_MAX;
 	payload.object = NULL;
 	i = 0;
 	while (i < engine->objects.len)
 	{
-		t_object	*obj = ((t_object *)engine->objects.tab) + i;
+		obj = ((t_object *)engine->objects.tab) + i;
 		current_dist = obj->get_hit_distance(obj, ray);
 		if (current_dist < payload.hit_distance && current_dist > 0.0f)
 		{

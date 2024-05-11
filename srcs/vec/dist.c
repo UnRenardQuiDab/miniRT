@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reflect.c                                          :+:      :+:    :+:   */
+/*   dist.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 21:52:05 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/11 05:36:45 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/11 06:09:50 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/11 07:55:53 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
 
-t_vec3	vec3_reflect(t_vec3 incident, t_vec3 normal)
+float	vec3_dist_sqr(t_vec3 a, t_vec3 b)
 {
-	t_vec3	reflected;
-
-	reflected = vec3_substract(incident,
-			vec3_multiply(normal, 2.0f * vec3_dot(incident, normal)));
-	return (reflected);
+	return ((a.x - b.x) * (a.x - b.x)
+		+ (a.y - b.y) * (a.y - b.y)
+		+ (a.z - b.z) * (a.z - b.z)
+	);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:20:44 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/09 19:11:34 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/11 07:55:53 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "engine.h"
 #include "ft_error.h"
 #include "file.h"
+#include "libft.h"
 
 float	get_hit_distance_sphere(t_object *obj, t_ray ray)
 {
@@ -32,16 +33,19 @@ float	get_hit_distance_sphere(t_object *obj, t_ray ray)
 	discriminant = b * b - 4.0f * a * c;
 	if (discriminant < 0)
 		return (FLT_MAX);
+	if (vec3_dist_sqr(ray.origin, obj->position)
+		<= obj->specific.sphere.radius * obj->specific.sphere.radius)
+		return ((-b + sqrt(discriminant)) / (2.0f * a));
 	return ((-b - sqrt(discriminant)) / (2.0f * a));
 }
 
 t_vec3	get_normal_sphere(t_object *obj, t_ray ray, t_hit_payload payload)
 {
 	(void)ray;
-	(void)obj;
+	if (ft_istolerated(vec3_dist_sqr(payload.world_position,obj->position), obj->specific.sphere.radius * obj->specific.sphere.radius, 0.0002))
+		return (vec3_multiply(vec3_normalize(payload.world_position), -1.0f));
 	return (vec3_normalize(payload.world_position));
 }
-
 
 uint8_t	init_sphere(t_engine *engine, char **args)
 {

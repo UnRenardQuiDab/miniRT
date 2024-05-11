@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.h                                          :+:      :+:    :+:   */
+/*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/11 05:12:32 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/10 20:16:10 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/11 05:40:24 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DISPLAY_H
-# define DISPLAY_H
+#ifndef CAMERA_H
+# define CAMERA_H
 
-# define WIDTH 1000
-# define HEIGHT 1000
-# define NAME "miniRT (lcottet & bwisniew)"
+# include "object.h"
 
-# define Z_NEAR 0.1f
-# define Z_FAR 	1000.0f
-
-typedef struct s_engine	t_engine;
-typedef struct s_img
+typedef struct s_camera
 {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_img;
-typedef struct s_mlx
-{
-	void		*mlx;
-	void		*win;
-	t_img		img;
-}	t_mlx;
+	t_vec3		position;
+	t_vec3		rotation;
+	t_vec3		up;
+	int32_t		fov;
+	t_mat4		projection;
+	t_mat4		view;
+	float		rad_fov;
+	float		far;
+	float		near;
+	float		aspect_ratio;
+}				t_camera;
 
-void	render(t_engine *engine);
+void	project_camera(t_camera *camera);
+void	mat4_perspective(t_camera *camera);
+void	mat4_view(t_camera *camera);
 
 #endif

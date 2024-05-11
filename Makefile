@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/09 18:33:55 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/11 07:55:53 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,21 @@ OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c
 
 DISPLAY_SRCS =	render.c
 
-VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c reflect.c color.c
+VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c reflect.c color.c dist.c
 
 FILE_SRCS = parsing.c init.c conversion.c range.c
 
-SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c) $(OBJECTS_SRCS:%.c=objects/%.c) $(VEC_SRCS:%.c=vec/%.c)
+MAT_SRCS = init.c multiply.c rotate.c translate.c inverse.c identity.c
+
+CAMERA_SRCS = init.c perspective.c view.c
+
+SRCS += $(ENGINE_SRCS:%.c=engine/%.c)\
+		$(DISPLAY_SRCS:%.c=display/%.c)\
+		$(FILE_SRCS:%.c=file/%.c)\
+		$(OBJECTS_SRCS:%.c=objects/%.c)\
+		$(VEC_SRCS:%.c=vec/%.c)\
+		$(MAT_SRCS:%.c=mat/%.c)\
+		$(CAMERA_SRCS:%.c=camera/%.c)
 
 OUTDIR = obj
 

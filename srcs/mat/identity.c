@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reflect.c                                          :+:      :+:    :+:   */
+/*   identity.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 21:52:05 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/11 05:36:45 by bwisniew         ###   ########.fr       */
+/*   Created: 2024/05/10 22:14:03 by bwisniew          #+#    #+#             */
+/*   Updated: 2024/05/11 05:32:39 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec.h"
+#include "matrix.h"
 
-t_vec3	vec3_reflect(t_vec3 incident, t_vec3 normal)
+t_mat4	mat4_identity(void)
 {
-	t_vec3	reflected;
+	t_mat4	identity;
 
-	reflected = vec3_substract(incident,
-			vec3_multiply(normal, 2.0f * vec3_dot(incident, normal)));
-	return (reflected);
+	identity = mat4_init(0.0f);
+	identity.matrix[0] = 1.0f;
+	identity.matrix[5] = 1.0f;
+	identity.matrix[10] = 1.0f;
+	identity.matrix[15] = 1.0f;
+	return (identity);
 }
