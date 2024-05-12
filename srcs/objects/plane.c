@@ -3,30 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:20 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/09 19:13:24 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/12 09:20:32 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 
+#include "libft.h"
 #include "engine.h"
 #include "ft_error.h"
 #include "file.h"
 
-float	get_hit_distance_plane(t_object *obj, t_ray ray)
+float	get_hit_distance_plane(t_object *obj, t_ray ray, t_hit_payload *payload)
 {
-	t_vec3		ray_origin;
 	float		t;
 	float		discriment;
 
-	ray_origin = vec3_substract(obj->position, ray.origin);
+	(void)payload;
 	discriment = vec3_dot(ray.direction, obj->rotation);
 	if (discriment == 0)
 		return (FLT_MAX);
-	t = vec3_dot(obj->rotation, ray_origin) / discriment;
+	t = vec3_dot(obj->rotation, vec3_substract(obj->position, ray.origin))
+		/ discriment;
 	return (t);
 }
 

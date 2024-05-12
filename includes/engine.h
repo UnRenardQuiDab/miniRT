@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/11 07:55:53 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/12 09:09:59 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_ray
 
 typedef struct s_hit_payload
 {
-	float		hit_distance;
-	t_vec3		world_position;
-	t_vec3		world_normal;
-	t_object	*object;
+	float			hit_distance;
+	t_vec3			world_position;
+	t_vec3			world_normal;
+	t_object		*object;
 }		t_hit_payload;
 
 typedef struct s_engine
@@ -60,5 +60,7 @@ void			mlx_destroy_mlx(t_mlx *mlx);
 int				mlx_init_mlx(t_mlx *mlx);
 
 t_hit_payload	trace_ray(t_engine *engine, t_ray ray);
+t_vec3			compute_light_colors(t_engine *engine, t_hit_payload *payload);
+t_ray			init_ray(t_engine *engine, t_vec2 pos);
 
 #endif

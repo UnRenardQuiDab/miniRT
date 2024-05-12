@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:20:44 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/11 07:55:53 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/12 09:54:23 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 #include "file.h"
 #include "libft.h"
 
-float	get_hit_distance_sphere(t_object *obj, t_ray ray)
+float	get_hit_distance_sphere(t_object *obj, t_ray ray,
+	t_hit_payload *payload)
 {
 	t_vec3		ray_origin;
 	float		a;
@@ -25,6 +26,7 @@ float	get_hit_distance_sphere(t_object *obj, t_ray ray)
 	float		c;
 	float		discriminant;
 
+	(void)payload;
 	ray_origin = vec3_substract(ray.origin, obj->position);
 	a = vec3_dot(ray.direction, ray.direction);
 	b = 2.0f * vec3_dot(ray_origin, ray.direction);
@@ -42,7 +44,8 @@ float	get_hit_distance_sphere(t_object *obj, t_ray ray)
 t_vec3	get_normal_sphere(t_object *obj, t_ray ray, t_hit_payload payload)
 {
 	(void)ray;
-	if (ft_istolerated(vec3_dist_sqr(payload.world_position,obj->position), obj->specific.sphere.radius * obj->specific.sphere.radius, 0.0002))
+	if (ft_istolerated(vec3_dist_sqr(payload.world_position, obj->position),
+			obj->specific.sphere.radius * obj->specific.sphere.radius, 0.0002))
 		return (vec3_multiply(vec3_normalize(payload.world_position), -1.0f));
 	return (vec3_normalize(payload.world_position));
 }

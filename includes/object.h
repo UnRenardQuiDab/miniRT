@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/11 05:42:50 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/12 08:27:32 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_sphere
 
 typedef struct s_cylinder
 {
-	float	diameter;
+	float	radius;
 	float	height;
 }	t_cylinder;
 
@@ -88,7 +88,8 @@ typedef struct s_object
 	t_vec3		rotation;
 	t_color		color;
 	t_specific	specific;
-	float		(*get_hit_distance)(struct s_object *self, t_ray ray);
+	float		(*get_hit_distance)(struct s_object *self, t_ray ray,
+			t_hit_payload *payload);
 	t_vec3		(*get_normal)(struct s_object * self,
 		t_ray ray, t_hit_payload payload);
 }	t_object;
@@ -99,5 +100,11 @@ uint8_t	init_light(t_engine *engine, char **args);
 uint8_t	init_cylinder(t_engine *engine, char **args);
 uint8_t	init_plane(t_engine *engine, char **args);
 uint8_t	init_sphere(t_engine *engine, char **args);
+
+float	get_hit_distance_plane(t_object *obj, t_ray ray,
+			t_hit_payload *payload);
+float	get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
+			t_hit_payload *payload);
+t_vec3	get_normal_inf_cylinder(t_object *obj, t_ray ray, float t);
 
 #endif

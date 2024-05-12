@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:57:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/11 05:32:20 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/12 00:19:30 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	mat4_view(t_camera *camera)
 	t_vec3	new_axe;
 	t_vec3	norm;
 
-	look_at = vec3_normalize(vec3_add(camera->position, camera->rotation));
+	look_at = camera->rotation;
 	norm = vec3_normalize(vec3_product(look_at, camera->up));
 	new_axe = vec3_normalize(vec3_product(norm, look_at));
 	view = mat4_identity();

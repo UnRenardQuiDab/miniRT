@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 17:01:05 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/11 06:30:15 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/11 23:17:23 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	project_camera(t_camera *camera)
 {
 	camera->rad_fov = tanf((camera->fov * M_PI / 180.0f) / 2.0f);
 	camera->up = (t_vec3){{0, 1, 0}};
-	camera->aspect_ratio = WIDTH / HEIGHT;
+	camera->aspect_ratio = (float)WIDTH / (float)HEIGHT;
 	camera->far = Z_FAR;
 	camera->near = Z_NEAR;
 	camera->view = mat4_init(0.0f);

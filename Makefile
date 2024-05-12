@@ -6,7 +6,7 @@
 #    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/11 07:55:53 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/05/12 09:54:23 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ SRCS_DIR = srcs
 
 SRCS = main.c error.c
 
-ENGINE_SRCS = mlx.c ray.c
+ENGINE_SRCS = mlx.c ray.c light.c
 
-OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c
+OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c
 
 DISPLAY_SRCS =	render.c
 
@@ -90,7 +90,7 @@ $(VECTOR): FORCE
 	make -C $(LIBS_DIR)/vector_c
 
 run: $(NAME)
-	./$(NAME) scenes/plane.rt
+	./$(NAME) scenes/cylinder.rt
 	
 valgrind: $(NAME)
 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)

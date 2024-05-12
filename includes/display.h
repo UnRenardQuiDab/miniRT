@@ -6,19 +6,19 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/11 05:12:32 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/12 09:54:23 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define WIDTH 1000
+# define WIDTH 1800
 # define HEIGHT 1000
 # define NAME "miniRT (lcottet & bwisniew)"
 
 # define Z_NEAR 0.1f
-# define Z_FAR 	1000.0f
+# define Z_FAR 	100.0f
 
 typedef struct s_engine	t_engine;
 typedef struct s_img
