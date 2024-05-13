@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:39:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/11 08:16:12 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/13 13:33:25 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ uint8_t	parsing(t_engine *engine, char *file_name)
 	while (line)
 	{
 		remove_nl(line);
-		if (line[0] != '#' && split_line(engine, line) != 0)
+		if (line[0] != '#' && split_line(engine, line) != SUCCESS)
 		{
 			free(line);
 			close(fd);

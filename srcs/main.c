@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:52:47 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/11 05:39:45 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:34:23 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "libft.h"
 #include "mlx.h"
 #include "file.h"
 #include "engine.h"
@@ -39,11 +40,24 @@ void	mat4_print(t_mat4 mat)
 	printf("\n");
 }
 
+bool	is_rt_file(char *filename)
+{
+	size_t	len;
+
+	len = ft_strlen(filename);
+	if (len < 3)
+		return (false);
+	if (ft_strcmp(filename + len - 3, ".rt") == 0)
+		return (true);
+	return (false);
+
+}
+
 int	main(int argc, char **argv)
 {
 	t_engine	engine;
 
-	if (argc < 2)
+	if (argc < 2 || !is_rt_file(argv[1]))
 		return (custom_error(argv[0], ERR_USAGE));
 	if (parsing(&engine, argv[1]) == FAILURE)
 	{
