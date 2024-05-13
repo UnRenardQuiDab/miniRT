@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ambient.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:19:27 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 16:18:50 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:54:23 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 uint8_t	init_ambient(t_engine *engine, char **args)
 {
-	if (engine->ambient.lighting > 0)
+	if (engine->ambient.lighting >= 0)
 		return (custom_error(OBJECT_AMBIENT, ERR_REDEFINITION));
 	if (str_to_decimal(&engine->ambient.lighting, args[1],
 			FLOAT, rangef(0.0f, 1.0f)) == FAILURE)

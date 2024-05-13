@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:52:07 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 17:13:59 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:36:17 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # define ERR_RANGE "Number not in valid range"
 # define ERR_REDEFINITION "Unique object is being defined twice"
 # define ERR_NOT_FOUND "Scene element not found"
+# define ERR_NO_CAMERA "No camera defined"
+# define ERR_NO_AMBIENT "No ambient light defined"
 # define ERR_MLX_INIT "Failed to initialize MLX"
-# define ERR_USAGE "Usage: ./miniRT <filename>"
+# define ERR_USAGE "Usage: ./miniRT <*.rt>"
 
 uint8_t	err(char *err);
 uint8_t	custom_error(char *err, char *msg);

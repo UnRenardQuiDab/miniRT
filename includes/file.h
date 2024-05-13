@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:55:45 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 16:15:00 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:01:30 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define FILE_H
 
 # include "engine.h"
-
-# define FLT_MAX __FLT_MAX__
-# define FLT_MIN -FLT_MAX
 
 typedef union u_range
 {

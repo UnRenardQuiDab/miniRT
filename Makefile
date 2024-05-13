@@ -3,30 +3,42 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/07 17:26:18 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/05/13 21:48:09 by lcottet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP
+C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP -Ofast -march=native -flto -fno-signed-zeros -funroll-loops
 
 SRCS_DIR = srcs
 
 SRCS = main.c error.c
 
-ENGINE_SRCS = mlx.c
+ENGINE_SRCS = mlx.c ray.c light.c
 
-OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c
+OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c disk.c
 
-DISPLAY_SRCS =	
+DISPLAY_SRCS =	render.c
+
+VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c reflect.c color.c dist.c
 
 FILE_SRCS = parsing.c init.c conversion.c range.c
 
-SRCS += $(ENGINE_SRCS:%.c=engine/%.c) $(DISPLAY_SRCS:%.c=display/%.c)  $(FILE_SRCS:%.c=file/%.c) $(OBJECTS_SRCS:%.c=objects/%.c)
+MAT_SRCS = init.c multiply.c rotate.c translate.c inverse.c identity.c
+
+CAMERA_SRCS = init.c perspective.c view.c
+
+SRCS += $(ENGINE_SRCS:%.c=engine/%.c)\
+		$(DISPLAY_SRCS:%.c=display/%.c)\
+		$(FILE_SRCS:%.c=file/%.c)\
+		$(OBJECTS_SRCS:%.c=objects/%.c)\
+		$(VEC_SRCS:%.c=vec/%.c)\
+		$(MAT_SRCS:%.c=mat/%.c)\
+		$(CAMERA_SRCS:%.c=camera/%.c)
 
 OUTDIR = obj
 
@@ -54,7 +66,7 @@ ifeq ($(OS), Linux)
 	MINILIBX_FOLDER = $(LIBS_DIR)/minilibx/minilibx-linux
 endif
 ifeq ($(OS), Darwin)
-	MINILIBX_PATH		=	lib/minilibx_opengl/
+	MINILIBX_FOLDER		=	$(LIBS_DIR)/minilibx/minilibx_opengl/
 endif
 
 MINILIBX = $(MINILIBX_FOLDER)/libmlx.a
@@ -78,7 +90,7 @@ $(VECTOR): FORCE
 	make -C $(LIBS_DIR)/vector_c
 
 run: $(NAME)
-	./$(NAME) scenes/subject.rt
+	./$(NAME) scenes/cylinder.rt
 	
 valgrind: $(NAME)
 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)
