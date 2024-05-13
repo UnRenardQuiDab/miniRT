@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/12 09:02:18 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:41:16 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_vec3	compute_light_colors(t_engine *engine, t_hit_payload *payload)
 	i = 0;
 	while (i < engine->lights.len)
 	{
-		light = engine->lights.tab + i;
+		light = (t_object *)engine->lights.tab + i;
 		light_dir = vec3_normalize(
 				vec3_substract(payload->world_position, light->position));
 		if (is_in_shadow(engine, payload, light, light_dir))

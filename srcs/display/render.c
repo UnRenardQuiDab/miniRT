@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/12 08:07:12 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:43:00 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,27 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 		ray.direction = vec3_reflect(ray.direction, payload.world_normal);
 		ray.origin = vec3_add(payload.world_position,
 				vec3_multiply(payload.world_normal, 0.0001f));
-		multiplier *= 0.7f;
+		multiplier *= 0.1f;
 		i++;
 	}
 	return (vec3_to_color(color));
+}
+
+void	calculate_inside_objects(t_engine *engine)
+{
+	size_t		i;
+	t_object	*obj;
+
+	i = 0;
+	while (i < engine->objects.len)
+	{
+		obj = (t_object *)engine->objects.tab + i;
+		if (obj->is_inside_func)
+			obj->is_inside = obj->is_inside_func(obj, engine->camera.position);
+		else
+			obj->is_inside = false;
+		i++;
+	}
 }
 
 void	render(t_engine *engine)
@@ -54,6 +71,7 @@ void	render(t_engine *engine)
 
 	pos.y = 0;
 	project_camera(&engine->camera);
+	calculate_inside_objects(engine);
 	while (pos.y < HEIGHT)
 	{
 		pos.x = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:20 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/12 09:20:32 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:27:39 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ uint8_t	init_plane(t_engine *engine, char **args)
 	obj.type = &engine->types[PLANE];
 	obj.get_hit_distance = get_hit_distance_plane;
 	obj.get_normal = get_normal_plane;
+	obj.is_inside_func = NULL;
 	if (ft_atov3(&obj.position, args[1], rangef(FLT_MIN, FLT_MAX)) == FAILURE)
 		return (FAILURE);
 	if (ft_atov3(&obj.rotation, args[2], rangef(-1.0f, 1.0f)) == FAILURE)

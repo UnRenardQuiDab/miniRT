@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/12 08:27:32 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/13 20:56:13 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECT_H
 # define OBJECT_H
 
+# include <stdbool.h>
 # include <stddef.h>
 
 # include "color.h"
@@ -88,6 +89,8 @@ typedef struct s_object
 	t_vec3		rotation;
 	t_color		color;
 	t_specific	specific;
+	bool		is_inside;
+	bool		(*is_inside_func)(struct s_object * self, t_vec3 origin);
 	float		(*get_hit_distance)(struct s_object *self, t_ray ray,
 			t_hit_payload *payload);
 	t_vec3		(*get_normal)(struct s_object * self,
@@ -106,5 +109,8 @@ float	get_hit_distance_plane(t_object *obj, t_ray ray,
 float	get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
 			t_hit_payload *payload);
 t_vec3	get_normal_inf_cylinder(t_object *obj, t_ray ray, float t);
+
+float	get_disk_context(float t[3], t_object *obj, t_hit_payload *payload);
+float	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset);
 
 #endif

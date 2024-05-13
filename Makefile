@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/12 09:54:23 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/05/13 21:48:09 by lcottet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP
+C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP -Ofast -march=native -flto -fno-signed-zeros -funroll-loops
 
 SRCS_DIR = srcs
 
@@ -20,7 +20,7 @@ SRCS = main.c error.c
 
 ENGINE_SRCS = mlx.c ray.c light.c
 
-OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c
+OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c disk.c
 
 DISPLAY_SRCS =	render.c
 

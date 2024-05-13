@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:52:47 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/13 13:34:23 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/13 20:51:58 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ bool	is_rt_file(char *filename)
 	if (ft_strcmp(filename + len - 3, ".rt") == 0)
 		return (true);
 	return (false);
-
 }
 
 int	main(int argc, char **argv)
