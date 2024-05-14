@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/13 21:48:09 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/14 13:52:16 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ MINILIBX = $(MINILIBX_FOLDER)/libmlx.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(VECTOR) $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(VECTOR) $(MINILIBX) $(GRAPHIC_FLAGS)
+	$(CC) $(C_FLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(VECTOR) $(MINILIBX) $(GRAPHIC_FLAGS)
 
 $(OUTDIR)/%.o: $(SRCS_DIR)/%.c $(LIBFT) $(VECTOR) $(MINILIBX)
 	@mkdir -p $(@D)
