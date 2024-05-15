@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 21:43:00 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 14:48:33 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 	color = (t_vec3){{0, 0, 0}};
 	multiplier = 1.0f;
 	i = 0;
-	while (i < BOUNCES)
+	while (i < engine->frame_details.bounces)
 	{
 		payload = trace_ray(engine, ray);
 		if (payload.hit_distance == -1)
@@ -46,6 +46,72 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 		i++;
 	}
 	return (vec3_to_color(color));
+}
+
+void	put_pixel_ratio(t_thread *thread, t_vec2 pos, t_color color)
+{
+	size_t	i;
+	size_t	j;
+	uint8_t	ratio;
+
+	ratio = thread->engine->frame_details.pixel_size;
+	i = 0;
+	while (i < ratio)
+	{
+		j = 0;
+		while (j < ratio)
+		{
+			if (pos.x + j < WIDTH && pos.y + i < thread->endy)
+				put_pixel(&thread->engine->mlx.img,
+					pos.x + j, pos.y + i, color.color);
+			j++;
+		}
+		i++;
+	}
+}
+
+void	thread_render_frame(t_thread *thread)
+{
+	t_vec2	pos;
+
+	pthread_mutex_lock(&thread->engine->frame_details.render_mutex);
+	pthread_mutex_unlock(&thread->engine->frame_details.render_mutex);
+	pos.y = thread->starty;
+	while (pos.y < thread->endy)
+	{
+		pos.x = 0;
+		while (pos.x < WIDTH)
+		{
+			put_pixel_ratio(thread, pos,
+				get_pixel_color(thread->engine, (t_vec2){{
+					pos.x + thread->engine->frame_details.pixel_size * 0.5f,
+					pos.y + thread->engine->frame_details.pixel_size * 0.5f
+				}}));
+			pos.x += thread->engine->frame_details.pixel_size;
+		}
+		pos.y += thread->engine->frame_details.pixel_size;
+	}
+	pthread_mutex_lock(&thread->engine->frame_details.finished_mutex);
+	thread->engine->frame_details.finished++;
+	pthread_mutex_unlock(&thread->engine->frame_details.finished_mutex);
+	wait_frame(thread->engine, 0);
+}
+
+void	*thread_render(t_thread *ptrthread)
+{
+	t_thread	thread;
+
+	thread = *ptrthread;
+	printf("Starting thread #%lu\n", thread.thread_id);
+	pthread_mutex_lock(&thread.engine->frame_details.running_mutex);
+	while (thread.engine->frame_details.running)
+	{
+		pthread_mutex_unlock(&thread.engine->frame_details.running_mutex);
+		thread_render_frame(&thread);
+		pthread_mutex_lock(&thread.engine->frame_details.running_mutex);
+	}
+	pthread_mutex_unlock(&thread.engine->frame_details.running_mutex);
+	return (NULL);
 }
 
 void	calculate_inside_objects(t_engine *engine)
@@ -63,26 +129,4 @@ void	calculate_inside_objects(t_engine *engine)
 			obj->is_inside = false;
 		i++;
 	}
-}
-
-void	render(t_engine *engine)
-{
-	t_vec2	pos;
-
-	pos.y = 0;
-	project_camera(&engine->camera);
-	calculate_inside_objects(engine);
-	while (pos.y < HEIGHT)
-	{
-		pos.x = 0;
-		while (pos.x < WIDTH)
-		{
-			put_pixel(&engine->mlx.img, pos.x, pos.y,
-				get_pixel_color(engine, pos).color);
-			pos.x++;
-		}
-		pos.y++;
-	}
-	mlx_put_image_to_window(engine->mlx.mlx, engine->mlx.win,
-		engine->mlx.img.img, 0, 0);
 }

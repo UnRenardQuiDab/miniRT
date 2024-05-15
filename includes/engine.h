@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 21:49:29 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 14:59:43 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_engine
 	t_camera		camera;
 	t_ambient		ambient;
 	t_mlx			mlx;
+	t_framedetails	frame_details;
 }				t_engine;
 
 void			mlx_hooks(t_mlx *mlx);
@@ -62,5 +63,9 @@ int				mlx_init_mlx(t_mlx *mlx);
 t_hit_payload	trace_ray(t_engine *engine, t_ray ray);
 t_vec3			compute_light_colors(t_engine *engine, t_hit_payload *payload);
 t_ray			init_ray(t_engine *engine, t_vec2 pos);
+
+int				loop_hook(t_engine *engine);
+
+int				exit_rt(t_engine *engine, int status);
 
 #endif
