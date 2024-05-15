@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:01 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 21:19:50 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 23:54:22 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	is_inside_cylinder(t_object *obj, t_vec3 origin)
 		}, NULL);
 	translate_center = vec3_add(obj->position, vec3_multiply(obj->rotation, h));
 	if (h > obj->specific.cylinder.height / 2)
+		return (false);
+	if (h < -obj->specific.cylinder.height / 2)
 		return (false);
 	return (vec3_dist_sqr(translate_center, origin)
 		< obj->specific.cylinder.radius * obj->specific.cylinder.radius);
