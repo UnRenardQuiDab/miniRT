@@ -6,7 +6,7 @@
 #    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/15 14:57:09 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/15 18:43:30 by lcottet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ FILE_SRCS = parsing.c init.c conversion.c range.c
 
 MAT_SRCS = init.c multiply.c rotate.c translate.c inverse.c identity.c
 
-CAMERA_SRCS = init.c perspective.c view.c
+CAMERA_SRCS = init.c perspective.c view.c mouvement.c rotate.c
 
 SRCS += $(ENGINE_SRCS:%.c=engine/%.c)\
 		$(DISPLAY_SRCS:%.c=display/%.c)\

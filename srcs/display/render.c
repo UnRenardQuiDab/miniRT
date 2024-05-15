@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 14:48:33 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 17:47:59 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ void	thread_render_frame(t_thread *thread)
 	thread->engine->frame_details.finished++;
 	pthread_mutex_unlock(&thread->engine->frame_details.finished_mutex);
 	wait_frame(thread->engine, 0);
+	pthread_mutex_lock(&thread->engine->frame_details.ready_mutex);
+	thread->engine->frame_details.ready++;
+	pthread_mutex_unlock(&thread->engine->frame_details.ready_mutex);
 }
 
 void	*thread_render(t_thread *ptrthread)
@@ -102,7 +105,6 @@ void	*thread_render(t_thread *ptrthread)
 	t_thread	thread;
 
 	thread = *ptrthread;
-	printf("Starting thread #%lu\n", thread.thread_id);
 	pthread_mutex_lock(&thread.engine->frame_details.running_mutex);
 	while (thread.engine->frame_details.running)
 	{

@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:52:47 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/15 14:59:53 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:27:14 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,9 @@ int	main(int argc, char **argv)
 	engine.mlx.engine = &engine;
 	if (mlx_init_mlx(&engine.mlx) == FAILURE)
 		return (exit_rt(&engine, custom_error(argv[0], ERR_MLX_INIT)));
+	mlx_mouse_move(engine.mlx.mlx, engine.mlx.win, WIDTH / 2, HEIGHT / 2);
 	if (create_threads(&engine) == FAILURE)
 		return (exit_rt(&engine, FAILURE));
-	project_camera(&engine.camera);
-	calculate_inside_objects(&engine);
 	mlx_loop(engine.mlx.mlx);
 	return (exit_rt(&engine, SUCCESS));
 }

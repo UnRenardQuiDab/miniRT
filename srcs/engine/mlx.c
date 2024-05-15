@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 14:47:14 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 18:27:12 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static int	mlx_stop_loop( int key, t_mlx *mlx)
-{
-	if (key == XK_Escape || key == XK_q)
-		mlx_loop_end(mlx->mlx);
-	return (SUCCESS);
-}
-
 void	mlx_hooks(t_mlx *mlx)
 {
 	mlx_loop_hook(mlx->mlx, loop_hook, mlx->engine);
-	mlx_hook(mlx->win, DestroyNotify, NoEventMask, mlx_loop_end, mlx->mlx);
-	mlx_hook(mlx->win, KeyPress, KeyPressMask, mlx_stop_loop, mlx);
+	mlx_hook(mlx->win, DestroyNotify, NoEventMask, mlx_loop_end, mlx);
+	mlx_hook(mlx->win, KeyPress, KeyPressMask, keypress_hook, mlx->engine);
+	mlx_hook(mlx->win, KeyRelease, KeyReleaseMask, keyrelease_hook, mlx->engine);
+	mlx_mouse_hook(mlx->win, buttonpress_hook, mlx->engine);
+	mlx_hook(mlx->win, MotionNotify, PointerMotionMask, motion_hook, mlx->engine);
 }
 
 void	put_pixel(t_img *img, int x, int y, int color)
