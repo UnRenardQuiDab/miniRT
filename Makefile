@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/14 13:52:16 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/05/15 14:57:09 by lcottet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,13 +16,13 @@ C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP -Ofast -march=native -flto -fno-sig
 
 SRCS_DIR = srcs
 
-SRCS = main.c error.c
+SRCS = main.c error.c exit.c
 
-ENGINE_SRCS = mlx.c ray.c light.c
+ENGINE_SRCS = mlx.c ray.c light.c hook.c
 
 OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c disk.c
 
-DISPLAY_SRCS =	render.c
+DISPLAY_SRCS =	render.c thread.c frame.c
 
 VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c reflect.c color.c dist.c
 

@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/13 21:41:16 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:26:36 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ bool	is_in_shadow(t_engine *engine, t_hit_payload *payload,
 {
 	t_hit_payload	light_payload;
 
+	if (engine->frame_details.lights == NO_SHADOW
+		|| engine->frame_details.lights == AMBIENT_ONLY)
+		return (false);
 	light_payload = trace_ray(engine, (t_ray){
 			vec3_add(payload->world_position,
 				vec3_multiply(payload->world_normal, 0.0001f)),
@@ -61,7 +64,8 @@ t_vec3	compute_light_colors(t_engine *engine, t_hit_payload *payload)
 	light_color = vec3_multiply(
 			color_to_vec3(engine->ambient.color), engine->ambient.lighting);
 	i = 0;
-	while (i < engine->lights.len)
+	while (i < engine->lights.len
+		&& engine->frame_details.lights != AMBIENT_ONLY)
 	{
 		light = (t_object *)engine->lights.tab + i;
 		light_dir = vec3_normalize(

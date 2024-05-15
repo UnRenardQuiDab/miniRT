@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 18:06:05 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/15 14:47:14 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <X11/keysymdef.h>
 #include <X11/X.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 static int	mlx_stop_loop( int key, t_mlx *mlx)
 {
@@ -29,6 +30,7 @@ static int	mlx_stop_loop( int key, t_mlx *mlx)
 
 void	mlx_hooks(t_mlx *mlx)
 {
+	mlx_loop_hook(mlx->mlx, loop_hook, mlx->engine);
 	mlx_hook(mlx->win, DestroyNotify, NoEventMask, mlx_loop_end, mlx->mlx);
 	mlx_hook(mlx->win, KeyPress, KeyPressMask, mlx_stop_loop, mlx);
 }
@@ -37,8 +39,14 @@ void	put_pixel(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	if (x <= WIDTH && y <= HEIGHT)
+	{
+		dst = img->addr
+			+ (y * img->line_length + x * (img->bits_per_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
+	else
+		printf("Acces x: %d y: %d out of image", x, y);
 }
 
 int	mlx_init_mlx(t_mlx *mlx)
