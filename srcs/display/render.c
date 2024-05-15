@@ -6,11 +6,10 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 14:48:33 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 23:50:56 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "display.h"
 #include "engine.h"
 #include "mlx.h"
 #include "camera.h"
@@ -37,7 +36,7 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 		if (payload.hit_distance == -1)
 			break ;
 		color = vec3_add(color,
-				vec3_multiply(compute_light_colors(engine, &payload),
+				vec3_multiply(compute_light_colors(engine, &payload, ray),
 					multiplier));
 		ray.direction = vec3_reflect(ray.direction, payload.world_normal);
 		ray.origin = vec3_add(payload.world_position,

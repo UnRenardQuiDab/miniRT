@@ -6,12 +6,14 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/14 19:26:36 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/15 23:57:14 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vec.h"
 #include "engine.h"
+
+#include <math.h>
 
 bool	is_in_shadow(t_engine *engine, t_hit_payload *payload,
 	t_object *light, t_vec3 light_dir)
@@ -34,15 +36,22 @@ bool	is_in_shadow(t_engine *engine, t_hit_payload *payload,
 }
 
 t_vec3	get_light_color(t_object *light, t_hit_payload *payload,
-	t_vec3 light_dir)
+	t_vec3 light_dir, t_ray ray)
 {
 	float	flight;
+	float	specular;
 
 	flight = vec3_dot(payload->world_normal,
 			vec3_multiply(light_dir,
 				-1.0f * (light->specific.light.brightness)));
 	if (flight < 0)
 		flight = 0;
+	specular = vec3_dot(vec3_reflect(light_dir, payload->world_normal),
+			vec3_multiply(ray.direction, -1.0f));
+	if (specular < 0)
+		specular = 0;
+	specular = pow(specular, 100);
+	flight += specular;
 	return (vec3_multiply(color_to_vec3(light->color), flight));
 }
 
@@ -54,7 +63,8 @@ t_vec3	apply_color_object(t_vec3 light_color, t_object *object)
 	return (light_color);
 }
 
-t_vec3	compute_light_colors(t_engine *engine, t_hit_payload *payload)
+t_vec3	compute_light_colors(t_engine *engine, t_hit_payload *payload,
+	t_ray ray)
 {
 	t_vec3		light_color;
 	t_object	*light;
@@ -76,7 +86,7 @@ t_vec3	compute_light_colors(t_engine *engine, t_hit_payload *payload)
 			continue ;
 		}
 		light_color = vec3_add(light_color,
-				get_light_color(light, payload, light_dir));
+				get_light_color(light, payload, light_dir, ray));
 		i++;
 	}
 	return (apply_color_object(light_color, payload->object));
