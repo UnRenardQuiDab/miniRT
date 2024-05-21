@@ -3,16 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   multiply.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 19:28:06 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/11 02:59:54 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:37:34 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
 #include "matrix.h"
+
+t_mat3	mat3_multiply(t_mat3 a, t_mat3 b)
+{
+	t_mat3		res;
+	size_t		i;
+
+	i = 0;
+	while (i < 3)
+	{
+		res.matrix[i] = a.matrix[i] * b.matrix[0] + a.matrix[i + 3]
+			* b.matrix[1] + a.matrix[i + 6] * b.matrix[2];
+		res.matrix[i + 3] = a.matrix[i] * b.matrix[3] + a.matrix[i + 3]
+			* b.matrix[4] + a.matrix[i + 6] * b.matrix[5];
+		res.matrix[i + 6] = a.matrix[i] * b.matrix[6] + a.matrix[i + 3]
+			* b.matrix[7] + a.matrix[i + 6] * b.matrix[8];
+		i++;
+	}
+	return (res);
+}
 
 t_mat4	mat4_multiply(t_mat4 a, t_mat4 b)
 {

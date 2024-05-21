@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 18:45:31 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/21 17:48:43 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "vec.h"
 
 # define MOUVEMENT_SPEED 0.1f
-# define SENSITIVITY 0.001f
+# define SENSITIVITY 0.0001f
 
 # define BOUNCES 1
 
