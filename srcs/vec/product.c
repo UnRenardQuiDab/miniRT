@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   product.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 21:13:35 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/21 17:44:26 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 18:58:32 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_vec3	vec3_product(t_vec3 a, t_vec3 b)
 	return (result);
 }
 
-t_vec3 mat3vec3_product(t_vec3 vec, t_mat3 mat)
+t_vec3	mat3vec3_product(t_vec3 vec, t_mat3 mat)
 {
 	size_t	i;
 	size_t	y;
@@ -66,4 +66,3 @@ t_vec4	mat4vec4_product(t_vec4 vec, t_mat4 mat)
 	}
 	return (product_vec);
 }
-

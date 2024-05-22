@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/15 18:43:30 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/22 19:36:07 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ $(VECTOR): FORCE
 	make -C $(LIBS_DIR)/vector_c
 
 run: $(NAME)
-	./$(NAME) scenes/cylinder.rt
+	./$(NAME) scenes/temple.rt
 	
 valgrind: $(NAME)
 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)

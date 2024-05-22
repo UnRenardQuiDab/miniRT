@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 17:47:59 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:28:41 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,9 @@ void	thread_render_frame(t_thread *thread)
 		while (pos.x < WIDTH)
 		{
 			put_pixel_ratio(thread, pos,
-				get_pixel_color(thread->engine, (t_vec2){{
-					pos.x + thread->engine->frame_details.pixel_size * 0.5f,
-					pos.y + thread->engine->frame_details.pixel_size * 0.5f
-				}}));
+				get_pixel_color(thread->engine, (t_vec2){{pos.x
+					+ thread->engine->frame_details.pixel_size * 0.5f, pos.y
+					+ thread->engine->frame_details.pixel_size * 0.5f}}));
 			pos.x += thread->engine->frame_details.pixel_size;
 		}
 		pos.y += thread->engine->frame_details.pixel_size;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 18:43:54 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:33:19 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int	motion_hook(int x, int y, t_engine *engine)
 	if (!engine->input.active || (x == WIDTH / 2 && y == HEIGHT / 2))
 		return (SUCCESS);
 	rotate_camera(engine, deltax, deltay);
-	mlx_mouse_move(engine->mlx.mlx, engine->mlx.win,
-		WIDTH / 2, HEIGHT / 2);
-	//printf("x: %d y: %d\n", deltax, deltay);
+	mlx_mouse_move(engine->mlx.mlx, engine->mlx.win, WIDTH / 2, HEIGHT / 2);
 	return (SUCCESS);
 }
 
@@ -45,6 +43,8 @@ int	buttonpress_hook(int button, int x, int y, t_engine *engine)
 	if (button == 1 && !engine->input.active)
 	{
 		mlx_mouse_hide(engine->mlx.mlx, engine->mlx.win);
+		engine->frame_details.lights = NO_SHADOW;
+		engine->frame_details.pixel_size = 4;
 		engine->input.active = true;
 	}
 	return (SUCCESS);

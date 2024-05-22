@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/21 17:48:43 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:04:39 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include "vec.h"
 
 # define MOUVEMENT_SPEED 0.1f
-# define SENSITIVITY 0.0001f
+# define SENSITIVITY 0.001f
 
 # define BOUNCES 1
 
@@ -47,7 +47,7 @@ typedef struct s_hit_payload
 	t_object		*object;
 }		t_hit_payload;
 
-typedef	struct s_input
+typedef struct s_input
 {
 	bool	left;
 	bool	right;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 18:27:50 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:00:02 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	wait_frame(t_engine *engine, uint16_t goal)
 	pthread_mutex_unlock(&engine->frame_details.running_mutex);
 	pthread_mutex_unlock(&engine->frame_details.finished_mutex);
 }
-
 
 void	wait_ready(t_engine *engine, uint16_t goal)
 {

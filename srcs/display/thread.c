@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 17:49:23 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:30:44 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	join_threads(t_framedetails *details)
 
 int8_t	init_frame_detais(t_engine *engine)
 {
-	engine->frame_details.pixel_size = 6;
+	engine->frame_details.pixel_size = 1;
 	engine->frame_details.lights = ALL;
 	engine->frame_details.bounces = BOUNCES;
 	engine->frame_details.finished = 0;
