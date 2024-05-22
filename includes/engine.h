@@ -78,7 +78,8 @@ void			mlx_destroy_mlx(t_mlx *mlx);
 int				mlx_init_mlx(t_mlx *mlx);
 
 t_hit_payload	trace_ray(t_engine *engine, t_ray ray);
-t_vec3			compute_light_colors(t_engine *engine, t_hit_payload *payload);
+t_vec3			compute_light_colors(t_engine *engine, t_hit_payload *payload,
+					t_ray ray);
 t_ray			init_ray(t_engine *engine, t_vec2 pos);
 
 int				loop_hook(t_engine *engine);
