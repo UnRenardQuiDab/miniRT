@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:20:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/09 19:53:55 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:53:57 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ uint8_t	init_light(t_engine *engine, char **args)
 	if (str_to_decimal(&obj.specific.light.brightness, args[2], FLOAT,
 			rangef(0.0f, 1.0f)) == FAILURE)
 		return (FAILURE);
-	if (ft_atoc(&obj.color, args[3]) == FAILURE)
+	if (ft_atom(engine, &obj.material, args[3]) == FAILURE)
 		return (FAILURE);
 	if (vector_add(&engine->lights, &obj) != 0)
 		return (err(obj.type->name));

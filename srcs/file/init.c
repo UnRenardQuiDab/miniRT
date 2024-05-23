@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:16:26 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 14:40:41 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:04:02 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_type(t_engine *engine)
 	{SPHERE, OBJECT_SPHERE, 4, init_sphere},
 	{PLANE, OBJECT_PLANE, 4, init_plane},
 	{CYLINDER, OBJECT_CYLINDER, 6, init_cylinder},
-	{MATERIAL, OBJECT_MATERIAL, 7, init_material}
+	{MATERIAL, OBJECT_MATERIAL, 8, init_material}
 	}, sizeof(t_obj_type) * TYPE_COUNT);
 }
 

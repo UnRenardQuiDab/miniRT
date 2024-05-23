@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/12 08:44:52 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/23 22:38:25 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
 {
 	t_vec3	origin;
+	t_vec3	normal;
 
 	origin = vec3_substract(ray.origin, payload.object->position);
 	payload.world_position = vec3_add(origin,
@@ -22,6 +23,10 @@ static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
 	if (payload.object->get_normal != NULL)
 		payload.world_normal = payload.object->get_normal(payload.object,
 				ray, payload);
+	normal = texture_get_value(&payload.object->material.bumpmap,
+			(t_color){128}, payload.object->get_uv(payload.object, &payload));
+	//payload.world_normal = disturb_world_normal(payload.world_normal, normal);
+	payload.world_normal = vec3_normalize(vec3_add(payload.world_normal, normal));
 	payload.world_position = vec3_add(payload.world_position,
 			payload.object->position);
 	return (payload);

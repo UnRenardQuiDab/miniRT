@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:20 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 20:27:39 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 17:40:34 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ uint8_t	init_plane(t_engine *engine, char **args)
 	if (ft_atov3(&obj.rotation, args[2], rangef(-1.0f, 1.0f)) == FAILURE)
 		return (FAILURE);
 	obj.rotation = vec3_normalize(obj.rotation);
-	if (ft_atoc(&obj.color, args[3]) == FAILURE)
+	if (ft_atom(engine, &obj.material, args[3]) == FAILURE)
 		return (FAILURE);
 	if (vector_add(&engine->objects, &obj) == -1)
 		return (err(obj.type->name));

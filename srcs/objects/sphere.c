@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:20:44 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 20:31:11 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 16:24:54 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,17 @@ t_vec3	get_normal_sphere(t_object *obj, t_ray ray, t_hit_payload payload)
 	return (vec3_normalize(payload.world_position));
 }
 
+t_vec2	get_uv_sphere(t_object *obj, t_hit_payload *payload)
+{
+	t_vec3	normal;
+	t_vec2	uv;
+
+	normal = vec3_normalize(vec3_substract(payload->world_position, obj->position));
+	uv.x = 0.5f + atan2(normal.z, normal.x) / (2.0f * M_PI);
+	uv.y = 0.5f - asin(normal.y) / M_PI;
+	return (uv);
+}
+
 uint8_t	init_sphere(t_engine *engine, char **args)
 {
 	t_object	obj;
@@ -62,13 +73,14 @@ uint8_t	init_sphere(t_engine *engine, char **args)
 	obj.get_hit_distance = get_hit_distance_sphere;
 	obj.get_normal = get_normal_sphere;
 	obj.is_inside_func = is_inside_sphere;
+	obj.get_uv = get_uv_sphere;
 	if (ft_atov3(&obj.position, args[1], rangef(FLT_MIN, FLT_MAX)) == FAILURE)
 		return (FAILURE);
 	if (str_to_decimal(&obj.specific.sphere.radius, args[2],
 			FLOAT, rangef(0, FLT_MAX)) == FAILURE)
 		return (FAILURE);
 	obj.specific.sphere.radius /= 2.0f;
-	if (ft_atoc(&obj.color, args[3]) == FAILURE)
+	if (ft_atom(engine, &obj.material, args[3]) == FAILURE)
 		return (FAILURE);
 	if (vector_add(&engine->objects, &obj) != 0)
 		return (err(obj.type->name));

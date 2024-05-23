@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:01 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 23:54:22 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:53:34 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ uint8_t	init_cylinder(t_engine *engine, char **args)
 	if (str_to_decimal(&obj.specific.cylinder.height, args[4],
 			FLOAT, rangef(0, FLT_MAX)) == FAILURE)
 		return (FAILURE);
-	if (ft_atoc(&obj.color, args[5]) == FAILURE)
+	if (ft_atom(engine, &obj.material, args[5]) == FAILURE)
 		return (FAILURE);
 	if (vector_add(&engine->objects, &obj) != 0)
 		return (err(obj.type->name));

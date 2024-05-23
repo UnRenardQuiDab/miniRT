@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 14:40:41 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:26:59 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ int				motion_hook(int x, int y, t_engine *engine);
 int				exit_rt(t_engine *engine, int status);
 void			camera_move(t_engine *engine);
 void			rotate_camera(t_engine *engine, int deltax, int deltay);
+
+t_vec3			disturb_world_normal(t_vec3 world_normal, t_vec3 bump_normal);
 
 #endif

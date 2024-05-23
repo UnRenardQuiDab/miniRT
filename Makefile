@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/23 14:07:35 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/05/23 19:53:07 by lcottet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP -Ofast -march=native -flto -fno-signed-zeros -funroll-loops
+C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP #-Ofast -march=native -flto -fno-signed-zeros -funroll-loops
 
 SRCS_DIR = srcs
 
 SRCS = main.c error.c exit.c
 
-ENGINE_SRCS = mlx.c ray.c light.c hook.c
+ENGINE_SRCS = mlx.c ray.c light.c hook.c normal.c
 
 OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c disk.c material.c
 
@@ -90,7 +90,7 @@ $(VECTOR): FORCE
 	make -C $(LIBS_DIR)/vector_c
 
 run: $(NAME)
-	./$(NAME) scenes/temple.rt
+	./$(NAME) scenes/material.rt
 	
 valgrind: $(NAME)
 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)

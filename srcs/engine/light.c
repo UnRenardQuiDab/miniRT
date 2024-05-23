@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/15 23:57:14 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 22:33:09 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	is_in_shadow(t_engine *engine, t_hit_payload *payload,
 		return (false);
 	light_payload = trace_ray(engine, (t_ray){
 			vec3_add(payload->world_position,
-				vec3_multiply(payload->world_normal, 0.0001f)),
+				vec3_multiply(payload->world_normal, 0.001f)),
 			vec3_multiply(light_dir, -1.0f)
 		});
 	if (light_payload.hit_distance != -1
@@ -52,14 +52,20 @@ t_vec3	get_light_color(t_object *light, t_hit_payload *payload,
 		specular = 0;
 	specular = pow(specular, 100);
 	flight += specular;
-	return (vec3_multiply(color_to_vec3(light->color), flight));
+	return (vec3_multiply(color_to_vec3(light->material.color), flight));
 }
 
-t_vec3	apply_color_object(t_vec3 light_color, t_object *object)
+t_vec3	apply_color_object(t_vec3 light_color, t_object *object,
+	t_hit_payload	*payload)
 {
-	light_color.x *= color_to_vec3(object->color).x;
-	light_color.y *= color_to_vec3(object->color).y;
-	light_color.z *= color_to_vec3(object->color).z;
+	//t_vec3	albedo;
+
+	//albedo = texture_get_value(&object->material.texture,
+	//		object->material.color, object->get_uv(object, payload));
+	(void)object;
+	light_color.x = payload->world_normal.x;
+	light_color.y = payload->world_normal.y;
+	light_color.z = payload->world_normal.z;
 	return (light_color);
 }
 
@@ -89,5 +95,5 @@ t_vec3	compute_light_colors(t_engine *engine, t_hit_payload *payload,
 				get_light_color(light, payload, light_dir, ray));
 		i++;
 	}
-	return (apply_color_object(light_color, payload->object));
+	return (apply_color_object(light_color, payload->object, payload));
 }
