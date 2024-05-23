@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/22 19:04:39 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:40:41 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_engine
 	t_obj_type		types[TYPE_COUNT];
 	t_vector		objects;
 	t_vector		lights;
+	t_vector		materials;
 	t_camera		camera;
 	t_ambient		ambient;
 	t_mlx			mlx;

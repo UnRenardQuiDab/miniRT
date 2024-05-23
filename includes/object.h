@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 20:56:13 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 14:40:41 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "vec.h"
 # include "matrix.h"
 # include "camera.h"
+# include "display.h"
 
 # define TYPE_COUNT 6
 
@@ -29,6 +30,7 @@
 # define OBJECT_PLANE "pl"
 # define OBJECT_SPHERE "sp"
 # define OBJECT_CYLINDER "cy"
+# define OBJECT_MATERIAL "M"
 
 typedef struct s_engine			t_engine;
 typedef struct s_ray			t_ray;
@@ -42,7 +44,8 @@ typedef enum e_type_index
 	LIGHT,
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	MATERIAL
 }	t_type_index;
 
 typedef struct s_obj_type
@@ -52,6 +55,28 @@ typedef struct s_obj_type
 	size_t			args_count;
 	uint8_t			(*init)(t_engine * engine, char **args);
 }	t_obj_type;
+
+typedef struct s_texture
+{
+	void	*mlx_img;
+	char	*addr;
+	int		bpp;
+	int		height;
+	int		width;
+	int		line_length;
+	int		endian;
+}	t_texture;
+
+typedef struct s_material
+{
+	int32_t	id;
+	t_color		color;
+	t_texture	texture;
+	t_texture	bumpmap;
+	float		reflection;
+	float		opacity;
+	float		refraction;
+}	t_material;
 
 typedef struct t_ambient
 {
@@ -87,7 +112,7 @@ typedef struct s_object
 	t_obj_type	*type;
 	t_vec3		position;
 	t_vec3		rotation;
-	t_color		color;
+	t_material	material;
 	t_specific	specific;
 	bool		is_inside;
 	bool		(*is_inside_func)(struct s_object * self, t_vec3 origin);
@@ -103,6 +128,7 @@ uint8_t	init_light(t_engine *engine, char **args);
 uint8_t	init_cylinder(t_engine *engine, char **args);
 uint8_t	init_plane(t_engine *engine, char **args);
 uint8_t	init_sphere(t_engine *engine, char **args);
+uint8_t	init_material(t_engine *engine, char **args);
 
 float	get_hit_distance_plane(t_object *obj, t_ray ray,
 			t_hit_payload *payload);

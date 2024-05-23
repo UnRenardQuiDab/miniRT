@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/22 19:33:19 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:40:41 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	buttonpress_hook(int button, int x, int y, t_engine *engine)
 	{
 		mlx_mouse_hide(engine->mlx.mlx, engine->mlx.win);
 		engine->frame_details.lights = NO_SHADOW;
-		engine->frame_details.pixel_size = 4;
+		engine->frame_details.pixel_size = 10;
 		engine->input.active = true;
 	}
 	return (SUCCESS);

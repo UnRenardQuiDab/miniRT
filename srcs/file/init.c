@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 15:16:26 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/08 16:10:29 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 14:40:41 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void	init_type(t_engine *engine)
 	{LIGHT, OBJECT_LIGHT, 4, init_light},
 	{SPHERE, OBJECT_SPHERE, 4, init_sphere},
 	{PLANE, OBJECT_PLANE, 4, init_plane},
-	{CYLINDER, OBJECT_CYLINDER, 6, init_cylinder}
+	{CYLINDER, OBJECT_CYLINDER, 6, init_cylinder},
+	{MATERIAL, OBJECT_MATERIAL, 7, init_material}
 	}, sizeof(t_obj_type) * TYPE_COUNT);
 }
 
@@ -33,4 +34,5 @@ void	init_engine(t_engine *engine)
 	engine->ambient.lighting = -1.0f;
 	vector_init(&engine->objects, sizeof(t_object));
 	vector_init(&engine->lights, sizeof(t_object));
+	vector_init(&engine->materials, sizeof(t_material));
 }
