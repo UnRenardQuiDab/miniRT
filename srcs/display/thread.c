@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 14:56:52 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:30:44 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,12 @@ void	join_threads(t_framedetails *details)
 
 int8_t	init_frame_detais(t_engine *engine)
 {
-	engine->frame_details.pixel_size = 2;
+	engine->frame_details.pixel_size = 1;
 	engine->frame_details.lights = ALL;
 	engine->frame_details.bounces = BOUNCES;
 	engine->frame_details.finished = 0;
 	engine->frame_details.running = true;
+	engine->frame_details.should_render = true;
 	if (pthread_mutex_init(&engine->frame_details.finished_mutex, NULL) != 0)
 		return (FAILURE);
 	if (pthread_mutex_init(&engine->frame_details.running_mutex, NULL) != 0)
@@ -103,8 +104,10 @@ void	request_frame(t_engine *engine)
 	struct timeval	start;
 	struct timeval	end;
 
-	ft_memset(engine->mlx.img.addr, 0, WIDTH * HEIGHT * 4);
 	gettimeofday(&start, NULL);
+	engine->frame_details.ready = 0;
+	project_camera(&engine->camera);
+	calculate_inside_objects(engine);
 	pthread_mutex_lock(&engine->frame_details.finished_mutex);
 	engine->frame_details.finished = 0;
 	pthread_mutex_unlock(&engine->frame_details.finished_mutex);
@@ -118,4 +121,5 @@ void	request_frame(t_engine *engine)
 	printf("Frame rendered in %ldms\n",
 		((end.tv_sec - start.tv_sec) * 1000
 			+ (end.tv_usec - start.tv_usec) / 1000));
+	wait_ready(engine, engine->frame_details.thread_count);
 }

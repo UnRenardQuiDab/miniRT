@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
 /*   Updated: 2024/05/15 23:50:56 by lcottet          ###   ########.fr       */
@@ -82,10 +82,9 @@ void	thread_render_frame(t_thread *thread)
 		while (pos.x < WIDTH)
 		{
 			put_pixel_ratio(thread, pos,
-				get_pixel_color(thread->engine, (t_vec2){{
-					pos.x + thread->engine->frame_details.pixel_size * 0.5f,
-					pos.y + thread->engine->frame_details.pixel_size * 0.5f
-				}}));
+				get_pixel_color(thread->engine, (t_vec2){{pos.x
+					+ thread->engine->frame_details.pixel_size * 0.5f, pos.y
+					+ thread->engine->frame_details.pixel_size * 0.5f}}));
 			pos.x += thread->engine->frame_details.pixel_size;
 		}
 		pos.y += thread->engine->frame_details.pixel_size;
@@ -94,6 +93,9 @@ void	thread_render_frame(t_thread *thread)
 	thread->engine->frame_details.finished++;
 	pthread_mutex_unlock(&thread->engine->frame_details.finished_mutex);
 	wait_frame(thread->engine, 0);
+	pthread_mutex_lock(&thread->engine->frame_details.ready_mutex);
+	thread->engine->frame_details.ready++;
+	pthread_mutex_unlock(&thread->engine->frame_details.ready_mutex);
 }
 
 void	*thread_render(t_thread *ptrthread)
@@ -101,7 +103,6 @@ void	*thread_render(t_thread *ptrthread)
 	t_thread	thread;
 
 	thread = *ptrthread;
-	printf("Starting thread #%lu\n", thread.thread_id);
 	pthread_mutex_lock(&thread.engine->frame_details.running_mutex);
 	while (thread.engine->frame_details.running)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/14 22:37:21 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/22 19:29:12 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ typedef struct s_framedetails
 	pthread_mutex_t	finished_mutex;
 	pthread_mutex_t	running_mutex;
 	pthread_mutex_t	render_mutex;
+	bool			should_render;
+	pthread_mutex_t	ready_mutex;
+	uint16_t		ready;
 }	t_framedetails;
 
 typedef struct s_img
@@ -79,5 +82,7 @@ int8_t	create_threads(t_engine *engine);
 void	join_threads(t_framedetails *details);
 void	calculate_inside_objects(t_engine *engine);
 void	wait_frame(t_engine *engine, uint16_t goal);
+void	wait_ready(t_engine *engine, uint16_t goal);
+void	prepare_hd(t_engine *engine);
 
 #endif

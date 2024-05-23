@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/15 14:57:09 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/22 19:36:07 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ FILE_SRCS = parsing.c init.c conversion.c range.c
 
 MAT_SRCS = init.c multiply.c rotate.c translate.c inverse.c identity.c
 
-CAMERA_SRCS = init.c perspective.c view.c
+CAMERA_SRCS = init.c perspective.c view.c mouvement.c rotate.c
 
 SRCS += $(ENGINE_SRCS:%.c=engine/%.c)\
 		$(DISPLAY_SRCS:%.c=display/%.c)\
@@ -90,7 +90,7 @@ $(VECTOR): FORCE
 	make -C $(LIBS_DIR)/vector_c
 
 run: $(NAME)
-	./$(NAME) scenes/cylinder.rt
+	./$(NAME) scenes/temple.rt
 	
 valgrind: $(NAME)
 	valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all ./$(NAME)
