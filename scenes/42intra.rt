@@ -1,8 +1,8 @@
-M 1 120,120,120 ./assets/ibertran.xpm NONE 0 1 0
-M 2 120,120,120 ./assets/ebriere.xpm NONE 0 1 0
-M 3 120,120,120 ./assets/anjambon.xpm NONE 0 1 0
-M 4 120,120,120 ./assets/sabitbol.xpm NONE 0 1 0
-M 5 120,120,120 ./assets/qpupier.xpm NONE 0 1 0
+M 1 120,120,120 ./assets/intra/ibertran.xpm NONE 0 1 0
+M 2 120,120,120 ./assets/intra/ebriere.xpm NONE 0 1 0
+M 3 120,120,120 ./assets/intra/anjambon.xpm NONE 0 1 0
+M 4 120,120,120 ./assets/intra/sabitbol.xpm NONE 0 1 0
+M 5 120,120,120 ./assets/intra/qpupier.xpm NONE 0 1 0
 
 A 1 255,255,255
 C 0.8,0.5,0.5 -1,0,0 120

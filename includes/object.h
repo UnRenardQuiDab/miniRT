@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 16:03:08 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:06:40 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,27 +120,27 @@ typedef struct s_object
 			t_hit_payload *payload);
 	t_vec3		(*get_normal)(struct s_object * self,
 		t_ray ray, t_hit_payload payload);
-	t_vec2		(*get_uv)(struct s_object * self, t_hit_payload *payload);
+	t_vec2		(*get_uv)(struct s_object * self, t_hit_payload * payload);
 }	t_object;
 
-uint8_t	init_ambient(t_engine *engine, char **args);
-uint8_t	init_camera(t_engine *engine, char **args);
-uint8_t	init_light(t_engine *engine, char **args);
-uint8_t	init_cylinder(t_engine *engine, char **args);
-uint8_t	init_plane(t_engine *engine, char **args);
-uint8_t	init_sphere(t_engine *engine, char **args);
-uint8_t	init_material(t_engine *engine, char **args);
+uint8_t		init_ambient(t_engine *engine, char **args);
+uint8_t		init_camera(t_engine *engine, char **args);
+uint8_t		init_light(t_engine *engine, char **args);
+uint8_t		init_cylinder(t_engine *engine, char **args);
+uint8_t		init_plane(t_engine *engine, char **args);
+uint8_t		init_sphere(t_engine *engine, char **args);
+uint8_t		init_material(t_engine *engine, char **args);
 
-float	get_hit_distance_plane(t_object *obj, t_ray ray,
-			t_hit_payload *payload);
-float	get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
-			t_hit_payload *payload);
-t_vec3	get_normal_inf_cylinder(t_object *obj, t_ray ray, float t);
+float		get_hit_distance_plane(t_object *obj, t_ray ray,
+				t_hit_payload *payload);
+float		get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
+				t_hit_payload *payload);
+t_vec3		get_normal_inf_cylinder(t_object *obj, t_ray ray, float t);
 
-float	get_disk_context(float t[3], t_object *obj, t_hit_payload *payload);
-float	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset);
+float		get_disk_context(float t[3], t_object *obj, t_hit_payload *payload);
+float		get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset);
 
 t_material	*get_material(t_engine *engine, int32_t id);
-t_vec3	texture_get_value(t_texture *texture, t_color accent, t_vec2 uv);
+t_vec3		texture_get_value(t_texture *texture, t_color accent, t_vec2 uv);
 
 #endif

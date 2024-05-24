@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 19:26:59 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/24 13:59:34 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "display.h"
 # include "vec.h"
 
-# define MOUVEMENT_SPEED 0.1f
+# define MOUVEMENT_SPEED 0.05f
 # define SENSITIVITY 0.001f
 
 # define BOUNCES 1
@@ -44,6 +44,7 @@ typedef struct s_hit_payload
 	float			hit_distance;
 	t_vec3			world_position;
 	t_vec3			world_normal;
+	t_vec2			uv;
 	t_object		*object;
 }		t_hit_payload;
 

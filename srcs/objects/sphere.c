@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:20:44 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 16:24:54 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:05:23 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ t_vec2	get_uv_sphere(t_object *obj, t_hit_payload *payload)
 	t_vec3	normal;
 	t_vec2	uv;
 
-	normal = vec3_normalize(vec3_substract(payload->world_position, obj->position));
+	normal = vec3_normalize(
+			vec3_substract(payload->world_position, obj->position));
 	uv.x = 0.5f + atan2(normal.z, normal.x) / (2.0f * M_PI);
 	uv.y = 0.5f - asin(normal.y) / M_PI;
 	return (uv);

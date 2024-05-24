@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/23 22:38:25 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:27:55 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
+static t_hit_payload	hit(t_engine *engine, t_hit_payload payload, t_ray ray)
 {
 	t_vec3	origin;
 	t_vec3	normal;
@@ -23,10 +23,17 @@ static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
 	if (payload.object->get_normal != NULL)
 		payload.world_normal = payload.object->get_normal(payload.object,
 				ray, payload);
-	normal = texture_get_value(&payload.object->material.bumpmap,
-			(t_color){128}, payload.object->get_uv(payload.object, &payload));
-	//payload.world_normal = disturb_world_normal(payload.world_normal, normal);
-	payload.world_normal = vec3_normalize(vec3_add(payload.world_normal, normal));
+	if ((payload.object->material.bumpmap.addr != NULL
+		|| payload.object->material.texture.addr != NULL) && payload.object->get_uv != NULL)
+		payload.uv = payload.object->get_uv(payload.object, &payload);
+	if (engine->frame_details.lights == ALL
+		&& payload.object->material.bumpmap.addr != NULL)
+	{
+		normal = texture_get_value(&payload.object->material.bumpmap,
+				(t_color){0x7F7F7F7F}, payload.uv);
+		payload.world_normal
+			= disturb_world_normal(payload.world_normal, normal);
+	}
 	payload.world_position = vec3_add(payload.world_position,
 			payload.object->position);
 	return (payload);
@@ -64,7 +71,7 @@ t_hit_payload	trace_ray(t_engine *engine, t_ray ray)
 	}
 	if (payload.object == NULL)
 		return (miss(payload));
-	return (hit(payload, ray));
+	return (hit(engine, payload, ray));
 }
 
 t_ray	init_ray(t_engine *engine, t_vec2 pos)

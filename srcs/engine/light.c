@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/23 22:33:09 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:19:55 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,13 @@ t_vec3	get_light_color(t_object *light, t_hit_payload *payload,
 				-1.0f * (light->specific.light.brightness)));
 	if (flight < 0)
 		flight = 0;
+	if (payload->object->material.reflection == 0)
+		return (vec3_multiply(color_to_vec3(light->material.color), flight));
 	specular = vec3_dot(vec3_reflect(light_dir, payload->world_normal),
 			vec3_multiply(ray.direction, -1.0f));
 	if (specular < 0)
 		specular = 0;
-	specular = pow(specular, 100);
+	specular = pow(specular, 100) * payload->object->material.reflection;
 	flight += specular;
 	return (vec3_multiply(color_to_vec3(light->material.color), flight));
 }
@@ -58,14 +60,18 @@ t_vec3	get_light_color(t_object *light, t_hit_payload *payload,
 t_vec3	apply_color_object(t_vec3 light_color, t_object *object,
 	t_hit_payload	*payload)
 {
-	//t_vec3	albedo;
+	t_vec3	albedo;
 
-	//albedo = texture_get_value(&object->material.texture,
-	//		object->material.color, object->get_uv(object, payload));
-	(void)object;
-	light_color.x = payload->world_normal.x;
-	light_color.y = payload->world_normal.y;
-	light_color.z = payload->world_normal.z;
+	albedo = texture_get_value(&object->material.texture,
+			object->material.color, payload->uv);
+	//light_color.x = payload->uv.x;
+	//light_color.y = payload->uv.y;
+	//light_color.z = 0;
+	//if (payload->uv.x > 1 || payload->uv.y > 1)
+	//	light_color.z = 1;
+	light_color.x *= albedo.x;
+	light_color.y *= albedo.y;
+	light_color.z *= albedo.z;
 	return (light_color);
 }
 

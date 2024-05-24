@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 17:47:20 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:54:40 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	buttonpress_hook(int button, int x, int y, t_engine *engine)
 	{
 		mlx_mouse_hide(engine->mlx.mlx, engine->mlx.win);
 		engine->frame_details.lights = NO_SHADOW;
-		engine->frame_details.pixel_size = 3;
+		engine->frame_details.pixel_size = 4;
 		engine->input.active = true;
 	}
 	return (SUCCESS);

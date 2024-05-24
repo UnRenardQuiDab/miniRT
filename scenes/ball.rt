@@ -1,0 +1,9 @@
+M 1 120,120,120 ./assets/textures/football.xpm ./assets/normals/football_normal.xpm 1 1 0
+
+A 0.1 255,255,255
+C 0.55,0,0 -1,0,0 70
+L -1,0,0 1 255,255,255
+sp 0,0,0 0.5 1
+L 1,0,0 1 255,255,255
+
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:20 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 17:40:34 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/24 20:54:40 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,36 @@ t_vec3	get_normal_plane(t_object *obj, t_ray ray, t_hit_payload payload)
 	return (obj->rotation);
 }
 
+t_vec2	get_uv_plane(t_object *obj, t_hit_payload *payload)
+{
+	t_vec3	normal;
+	t_vec3	u;
+	t_vec3	v;
+	t_vec2	uv;
+	t_vec3 position = vec3_substract(payload->world_position, obj->position);
+	normal = obj->rotation;
+	float 	d = -normal.x * obj->position.x - normal.y * obj->position.y - normal.z * obj->position.z;
+	if (normal.z != 0)
+		u = (t_vec3) {{-1, 0, -(normal.x + normal.y + d) / normal.z}};
+	else if (normal.y != 0)
+		u = (t_vec3) {{-1 ,-(normal.x + normal.z + d) / normal.y, 0}};
+	else
+		u = (t_vec3) {{-(normal.y + normal.z + d) / normal.x, -1, 0}};
+
+	(void) obj;
+	u = vec3_normalize(u);
+	v = vec3_product(normal, u);
+	uv.x = vec3_dot(position, u);
+	uv.y = vec3_dot(position, v);
+	uv.x = uv.x - (int)uv.x;
+	uv.y = uv.y - (int)uv.y;
+	if (uv.x < 0)
+		uv.x = 1 + uv.x;
+	if (uv.y < 0)
+		uv.y = 1 + uv.y;
+	return (uv);
+}
+
 uint8_t	init_plane(t_engine *engine, char **args)
 {
 	t_object	obj;
@@ -47,6 +77,7 @@ uint8_t	init_plane(t_engine *engine, char **args)
 	obj.get_hit_distance = get_hit_distance_plane;
 	obj.get_normal = get_normal_plane;
 	obj.is_inside_func = NULL;
+	obj.get_uv = get_uv_plane;
 	if (ft_atov3(&obj.position, args[1], rangef(FLT_MIN, FLT_MAX)) == FAILURE)
 		return (FAILURE);
 	if (ft_atov3(&obj.rotation, args[2], rangef(-1.0f, 1.0f)) == FAILURE)
