@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/15 23:50:56 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/27 15:11:55 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 	ray = init_ray(engine, pos);
 	color = (t_vec3){{0, 0, 0}};
 	multiplier = 1.0f;
-	i = 0;
-	while (i < engine->frame_details.bounces)
+	i = 1;
+	while (i <= engine->frame_details.bounces && multiplier > 0.0f)
 	{
 		payload = trace_ray(engine, ray);
 		if (payload.hit_distance == -1)
@@ -41,7 +41,7 @@ t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
 		ray.direction = vec3_reflect(ray.direction, payload.world_normal);
 		ray.origin = vec3_add(payload.world_position,
 				vec3_multiply(payload.world_normal, 0.0001f));
-		multiplier *= 0.1f;
+		multiplier *= payload.object->material.reflection;
 		i++;
 	}
 	return (vec3_to_color(color));

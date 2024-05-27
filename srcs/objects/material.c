@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:09:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 16:26:45 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/26 19:42:22 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3	texture_get_value(t_texture *texture, t_color accent, t_vec2 uv)
 	if (texture->mlx_img == NULL)
 		return (color_to_vec3(accent));
 	x = (int)(uv.x * texture->width) % texture->width;
-	y = (int)(uv.y * texture->height) % texture->height;
+	y = (int)(uv.y * texture->height) % (texture->height);
 	color.x = (unsigned char)texture->addr
 	[(y * texture->line_length + x * (texture->bpp / 8)) + 2] / 255.0f;
 	color.y = (unsigned char)texture->addr

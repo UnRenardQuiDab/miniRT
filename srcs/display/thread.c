@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/24 20:54:40 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:59:54 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int8_t	init_frame_detais(t_engine *engine)
 {
 	engine->frame_details.pixel_size = 1;
 	engine->frame_details.lights = ALL;
-	engine->frame_details.bounces = BOUNCES;
+	engine->frame_details.bounces = 1;
 	engine->frame_details.finished = 0;
 	engine->frame_details.running = true;
 	engine->frame_details.should_render = true;

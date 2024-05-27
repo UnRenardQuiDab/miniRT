@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/24 13:59:34 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:21:59 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define MOUVEMENT_SPEED 0.05f
 # define SENSITIVITY 0.001f
 
-# define BOUNCES 1
+# define BOUNCES 200
 
 # define FAILURE 1
 # define SUCCESS 0

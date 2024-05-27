@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   display.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/22 19:29:12 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:42:56 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DISPLAY_H
 # define DISPLAY_H
 
-# define WIDTH 1800
-# define HEIGHT 1100
+# define WIDTH 1920
+# define HEIGHT 1080
 # define NAME "miniRT (lcottet & bwisniew)"
 
 # define Z_NEAR 0.1f

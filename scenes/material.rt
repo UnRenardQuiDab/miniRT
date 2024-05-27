@@ -1,4 +1,4 @@
-M 1 120,120,120 ./assets/textures/earth_8k.xpm ./assets/normals/earth_8k_normal.xpm 1 1 0
+M 1 120,120,120 ./assets/textures/checker.xpm ./assets/normals/earth_8k_normal.xpm 1 1 0
 
 A 0.1 255,255,255
 C 0.55,0,0 -1,0,0 70
