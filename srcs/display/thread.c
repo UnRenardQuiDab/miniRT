@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thread.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/27 14:59:54 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/28 17:47:20 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,15 @@ void	join_threads(t_framedetails *details)
 
 int8_t	init_frame_detais(t_engine *engine)
 {
-	engine->frame_details.pixel_size = 1;
+	engine->frame_details.pixel_size = 100;
 	engine->frame_details.lights = ALL;
 	engine->frame_details.bounces = 1;
 	engine->frame_details.finished = 0;
 	engine->frame_details.running = true;
 	engine->frame_details.should_render = true;
+	ft_memset(engine->frame_details.frame_time, 0,
+		sizeof(engine->frame_details.frame_time));
+	engine->frame_details.frame_time_len = 0;
 	if (pthread_mutex_init(&engine->frame_details.finished_mutex, NULL) != 0)
 		return (FAILURE);
 	if (pthread_mutex_init(&engine->frame_details.running_mutex, NULL) != 0)
@@ -118,8 +121,12 @@ void	request_frame(t_engine *engine)
 	engine->frame_details.finished = 0;
 	pthread_mutex_unlock(&engine->frame_details.finished_mutex);
 	gettimeofday(&end, NULL);
-	printf("Frame rendered in %ldms\n",
-		((end.tv_sec - start.tv_sec) * 1000
-			+ (end.tv_usec - start.tv_usec) / 1000));
+	if (engine->frame_details.pixel_size != 1)
+	{
+		add_frame_time(((end.tv_sec - start.tv_sec) * 1000
+				+ (end.tv_usec - start.tv_usec) / 1000),
+			&engine->frame_details);
+		adjust_frame_details(&engine->frame_details);
+	}
 	wait_ready(engine, engine->frame_details.thread_count);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/27 15:11:55 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,32 @@
 
 #include <stdio.h>
 
-t_color	get_pixel_color(t_engine *engine, t_vec2 pos)
+t_vec3	get_pixel_color(t_engine *engine, t_ray ray, uint32_t reflections)
 {
-	t_vec3			color;
-	t_ray			ray;
 	t_hit_payload	payload;
-	float			multiplier;
-	size_t			i;
+	t_vec3			color;
+	t_ray			refracted_ray;
 
-	ray = init_ray(engine, pos);
-	color = (t_vec3){{0, 0, 0}};
-	multiplier = 1.0f;
-	i = 1;
-	while (i <= engine->frame_details.bounces && multiplier > 0.0f)
+	payload = trace_ray(engine, ray);
+	if (payload.hit_distance == -1)
+		return ((t_vec3){{0, 0, 0}});
+	color = compute_light_colors(engine, &payload, ray);
+	if (payload.object->material.opacity != 1.0f && reflections > 0)
 	{
-		payload = trace_ray(engine, ray);
-		if (payload.hit_distance == -1)
-			break ;
-		color = vec3_add(color,
-				vec3_multiply(compute_light_colors(engine, &payload, ray),
-					multiplier));
-		ray.direction = vec3_reflect(ray.direction, payload.world_normal);
-		ray.origin = vec3_add(payload.world_position,
-				vec3_multiply(payload.world_normal, 0.0001f));
-		multiplier *= payload.object->material.reflection;
-		i++;
+		refracted_ray = get_refracted_ray(ray, payload);
+		color = vec3_add(vec3_multiply(
+					get_pixel_color(engine, refracted_ray, --reflections),
+					1.0f - payload.object->material.opacity),
+				vec3_multiply(color, payload.object->material.opacity));
 	}
-	return (vec3_to_color(color));
+	if (payload.object->material.reflection > 0.0f && reflections > 0)
+	{
+		ray = get_reflected_ray(ray, payload);
+		color = vec3_add(color,
+				vec3_multiply(get_pixel_color(engine, ray, --reflections),
+					payload.object->material.reflection));
+	}
+	return (color);
 }
 
 void	put_pixel_ratio(t_thread *thread, t_vec2 pos, t_color color)
@@ -73,8 +72,9 @@ void	thread_render_frame(t_thread *thread)
 {
 	t_vec2	pos;
 
-	pthread_mutex_lock(&thread->engine->frame_details.render_mutex);
-	pthread_mutex_unlock(&thread->engine->frame_details.render_mutex);
+	if (!wait_start(thread))
+		return ;
+	pthread_mutex_unlock(&thread->engine->frame_details.running_mutex);
 	pos.y = thread->starty;
 	while (pos.y < thread->endy)
 	{
@@ -82,20 +82,18 @@ void	thread_render_frame(t_thread *thread)
 		while (pos.x < WIDTH)
 		{
 			put_pixel_ratio(thread, pos,
-				get_pixel_color(thread->engine, (t_vec2){{pos.x
-					+ thread->engine->frame_details.pixel_size * 0.5f, pos.y
-					+ thread->engine->frame_details.pixel_size * 0.5f}}));
+				vec3_to_color(get_pixel_color(thread->engine,
+						init_ray(thread->engine, (t_vec2){{pos.x
+							+ thread->engine->frame_details.pixel_size * 0.5f,
+							pos.y
+							+ thread->engine->frame_details.pixel_size
+							* 0.5f}}),
+						thread->engine->frame_details.bounces)));
 			pos.x += thread->engine->frame_details.pixel_size;
 		}
 		pos.y += thread->engine->frame_details.pixel_size;
 	}
-	pthread_mutex_lock(&thread->engine->frame_details.finished_mutex);
-	thread->engine->frame_details.finished++;
-	pthread_mutex_unlock(&thread->engine->frame_details.finished_mutex);
-	wait_frame(thread->engine, 0);
-	pthread_mutex_lock(&thread->engine->frame_details.ready_mutex);
-	thread->engine->frame_details.ready++;
-	pthread_mutex_unlock(&thread->engine->frame_details.ready_mutex);
+	end_frame(thread);
 }
 
 void	*thread_render(t_thread *ptrthread)

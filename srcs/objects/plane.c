@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:20 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/26 19:33:00 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,34 @@ t_vec3	get_normal_plane(t_object *obj, t_ray ray, t_hit_payload payload)
 	return (obj->rotation);
 }
 
-t_vec2	get_uv_plane(t_object *obj, t_hit_payload *payload)
+static t_vec3	get_u_plane(t_object *obj)
 {
 	t_vec3	normal;
 	t_vec3	u;
+	float	d;
+
+	normal = obj->rotation;
+	d = -normal.x * obj->position.x - normal.y * obj->position.y - normal.z
+		* obj->position.z;
+	if (normal.z != 0)
+		u = (t_vec3){{-1, 0, -(normal.x + normal.y + d) / normal.z}};
+	else if (normal.y != 0)
+		u = (t_vec3){{-1, -(normal.x + normal.z + d) / normal.y, 0}};
+	else
+		u = (t_vec3){{-1 * (normal.y + normal.z + d) / normal.x, -1, 0}};
+	return (vec3_normalize(u));
+}
+
+t_vec2	get_uv_plane(t_object *obj, t_hit_payload *payload)
+{
+	t_vec3	u;
 	t_vec3	v;
 	t_vec2	uv;
-	t_vec3 position = vec3_substract(payload->world_position, obj->position);
-	normal = obj->rotation;
-	float 	d = -normal.x * obj->position.x - normal.y * obj->position.y - normal.z * obj->position.z;
-	if (normal.z != 0)
-		u = (t_vec3) {{-1, 0, -(normal.x + normal.y + d) / normal.z}};
-	else if (normal.y != 0)
-		u = (t_vec3) {{-1 ,-(normal.x + normal.z + d) / normal.y, 0}};
-	else
-		u = (t_vec3) {{-(normal.y + normal.z + d) / normal.x, -1, 0}};
+	t_vec3	position;
 
-	(void) obj;
-	u = vec3_normalize(u);
-	v = vec3_product(normal, u);
+	position = vec3_substract(payload->world_position, obj->position);
+	u = get_u_plane(obj);
+	v = vec3_product(obj->rotation, u);
 	uv.x = vec3_dot(position, u);
 	uv.y = vec3_dot(position, v);
 	uv.x = uv.x - (int)uv.x;

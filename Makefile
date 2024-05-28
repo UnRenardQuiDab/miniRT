@@ -3,28 +3,28 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
+#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/23 19:53:07 by lcottet          ###   ########.fr        #
+#    Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 
-C_FLAGS = -g3 -Wall -Wextra -Werror -MMD -MP #-Ofast -march=native -flto -fno-signed-zeros -funroll-loops
+C_FLAGS = -Wall -Wextra -Werror -MMD -MP -Ofast -march=native -flto -fno-signed-zeros -funroll-loops
 
 SRCS_DIR = srcs
 
 SRCS = main.c error.c exit.c
 
-ENGINE_SRCS = mlx.c ray.c light.c hook.c normal.c
+ENGINE_SRCS = mlx.c ray.c light.c hook.c normal.c disturb_ray.c
 
 OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c disk.c material.c
 
-DISPLAY_SRCS =	render.c thread.c frame.c
+DISPLAY_SRCS =	render.c thread.c frame.c frame_time.c render_sync.c
 
-VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c reflect.c color.c dist.c
+VEC_SRCS =	dot.c add.c product.c multiply.c substract.c normalize.c reflect.c color.c dist.c refract.c
 
 FILE_SRCS = parsing.c init.c conversion.c range.c
 

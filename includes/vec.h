@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 20:29:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/22 19:42:34 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_substract(t_vec3 a, t_vec3 b);
 t_vec3	vec3_normalize(t_vec3 a);
 t_vec3	vec3_reflect(t_vec3 incident, t_vec3 normal);
+t_vec3	vec3_refract(t_vec3 ray_dir, t_vec3 normal, float refract);
 t_vec3	color_to_vec3(t_color color);
 t_vec4	mat4vec4_product(t_vec4 vec, t_mat4 mat);
 t_vec3	mat3vec3_product(t_vec3 vec, t_mat3 mat);

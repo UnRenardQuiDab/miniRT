@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/27 15:05:09 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,6 @@ t_vec3	apply_color_object(t_vec3 light_color, t_object *object,
 
 	albedo = texture_get_value(&object->material.texture,
 			object->material.color, payload->uv);
-	//light_color.x = payload->uv.x;
-	//light_color.y = payload->uv.y;
-	//light_color.z = 0;
-	//if (payload->uv.x > 1 || payload->uv.y > 1)
-	//	light_color.z = 1;
 	light_color.x *= albedo.x;
 	light_color.y *= albedo.y;
 	light_color.z *= albedo.z;

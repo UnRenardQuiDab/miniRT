@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/24 20:27:55 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ static t_hit_payload	hit(t_engine *engine, t_hit_payload payload, t_ray ray)
 		payload.world_normal = payload.object->get_normal(payload.object,
 				ray, payload);
 	if ((payload.object->material.bumpmap.addr != NULL
-		|| payload.object->material.texture.addr != NULL) && payload.object->get_uv != NULL)
+			|| payload.object->material.texture.addr != NULL)
+		&& payload.object->get_uv != NULL)
 		payload.uv = payload.object->get_uv(payload.object, &payload);
 	if (engine->frame_details.lights == ALL
 		&& payload.object->material.bumpmap.addr != NULL)

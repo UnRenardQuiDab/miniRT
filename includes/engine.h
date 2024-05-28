@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/27 15:21:59 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define MOUVEMENT_SPEED 0.05f
 # define SENSITIVITY 0.001f
 
-# define BOUNCES 200
+# define BOUNCES 30
 
 # define FAILURE 1
 # define SUCCESS 0
@@ -95,5 +95,7 @@ void			camera_move(t_engine *engine);
 void			rotate_camera(t_engine *engine, int deltax, int deltay);
 
 t_vec3			disturb_world_normal(t_vec3 world_normal, t_vec3 bump_normal);
+t_ray			get_reflected_ray(t_ray ray, t_hit_payload payload);
+t_ray			get_refracted_ray(t_ray ray, t_hit_payload payload);
 
 #endif
