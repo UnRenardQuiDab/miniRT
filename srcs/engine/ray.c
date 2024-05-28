@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:25:46 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static t_hit_payload	hit(t_engine *engine, t_hit_payload payload, t_ray ray)
 	if (payload.object->get_normal != NULL)
 		payload.world_normal = payload.object->get_normal(payload.object,
 				ray, payload);
+	payload.world_position = vec3_add(payload.world_position,
+			payload.object->position);
 	if ((payload.object->material.bumpmap.addr != NULL
 			|| payload.object->material.texture.addr != NULL)
 		&& payload.object->get_uv != NULL)
@@ -35,8 +37,6 @@ static t_hit_payload	hit(t_engine *engine, t_hit_payload payload, t_ray ray)
 		payload.world_normal
 			= disturb_world_normal(payload.world_normal, normal);
 	}
-	payload.world_position = vec3_add(payload.world_position,
-			payload.object->position);
 	return (payload);
 }
 
