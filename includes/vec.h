@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 20:29:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/01 05:46:21 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/01 11:12:38 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef union u_vec4
 float	vec3_dot(t_vec3 a, t_vec3 b);
 float	vec3_dist_sqr(t_vec3 a, t_vec3 b);
 t_vec3	vec3_multiply(t_vec3 a, float b);
+t_vec3	vec3_multiply_vec(t_vec3 a, t_vec3 b);
 t_vec3	vec3_product(t_vec3 a, t_vec3 b);
 t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_substract(t_vec3 a, t_vec3 b);
