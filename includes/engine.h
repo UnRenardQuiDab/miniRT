@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/01 11:29:42 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:25:52 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			mlx_destroy_mlx(t_mlx *mlx);
 int				mlx_init_mlx(t_mlx *mlx);
 
 t_hit_payload	trace_ray(t_engine *engine, t_ray ray);
-t_vec3			compute_light_colors(t_engine *engine, t_hit_payload *payload,
+t_vec3			compute_lights_colors(t_engine *engine, t_hit_payload *payload,
 					t_ray ray);
 t_ray			init_ray(t_engine *engine, t_vec2 pos);
 
@@ -98,5 +98,9 @@ void			rotate_camera(t_engine *engine, int deltax, int deltay);
 t_vec3			disturb_world_normal(t_vec3 world_normal, t_vec3 bump_normal);
 t_ray			get_reflected_ray(t_ray ray, t_hit_payload payload);
 t_ray			get_refracted_ray(t_ray ray, t_hit_payload payload);
+t_vec3			apply_color_object(t_vec3 light_color, t_object *object,
+					t_hit_payload	*payload);
+t_vec4			trace_shadow_color(t_engine *engine, t_vec3 l_dir,
+					t_object *light, t_hit_payload *payload);
 
 #endif

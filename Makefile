@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/05/28 18:08:13 by bwisniew         ###   ########.fr        #
+#    Updated: 2024/06/03 16:22:38 by lcottet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS_DIR = srcs
 
 SRCS = main.c error.c exit.c
 
-ENGINE_SRCS = mlx.c ray.c light.c hook.c normal.c disturb_ray.c
+ENGINE_SRCS = mlx.c ray.c light.c hook.c normal.c disturb_ray.c shadow.c
 
 OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylinder.c disk.c material.c
 
