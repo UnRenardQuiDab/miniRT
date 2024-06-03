@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inf_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 06:04:33 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 21:04:33 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/03 17:29:51 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,13 @@ float	get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
 	if (delta[0] < delta[1])
 		return (delta[0]);
 	return (delta[1]);
+}
+
+t_vec2	get_uv_inf_cylinder(t_object *obj, t_hit_payload *payload)
+{
+	float	theta = atan2(payload->world_normal.x, payload->world_normal.z);
+	float	raw_u = theta / (2 * M_PI);
+	float	u = 1 - (raw_u + 0.5);
+	float	v = 1 - (payload->world_position.y / (obj->specific.cylinder.height) + 0.5);
+	return ((t_vec2){{u, v}});
 }

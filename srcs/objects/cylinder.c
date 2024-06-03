@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:01 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/24 20:27:40 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/06/03 15:58:25 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ uint8_t	init_cylinder(t_engine *engine, char **args)
 	obj.get_hit_distance = get_hit_distance_cylinder;
 	obj.get_normal = get_normal_cylinder;
 	obj.is_inside_func = is_inside_cylinder;
-	obj.get_uv = NULL;
+	obj.get_uv = get_uv_inf_cylinder;
 	if (ft_atov3(&obj.position, args[1], rangef(FLT_MIN, FLT_MAX)) == FAILURE)
 		return (FAILURE);
 	if (ft_atov3(&obj.rotation, args[2], rangef(-1.0f, 1.0f)) == FAILURE)

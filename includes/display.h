@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:53:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/28 17:54:20 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/30 17:48:41 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # define Z_FAR 	100.0f
 
 # define FRAME_TIME_COUNT 30
-# define FRAME_TIME_GOAL_MIN 30
-# define FRAME_TIME_GOAL_MAX 65
+# define FRAME_TIME_GOAL_MIN 10
+# define FRAME_TIME_GOAL_MAX 80
 
 # include <pthread.h>
 # include <stdbool.h>

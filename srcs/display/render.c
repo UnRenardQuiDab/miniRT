@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/03 16:11:31 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/03 16:45:58 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_vec3	get_pixel_color(t_engine *engine, t_ray ray, uint32_t reflections)
 
 	payload = trace_ray(engine, ray);
 	if (payload.hit_distance == -1)
-		return ((t_vec3){{0, 0, 0}});
+		return ((t_vec3){{0, 0.5, 1}});
 	color = compute_lights_colors(engine, &payload, ray);
 	if (payload.object->material.opacity != 1.0f && reflections > 0)
 	{
