@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 17:58:43 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/22 19:00:02 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:59:51 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	prepare_hd(t_engine *engine)
 	engine->frame_details.lights = ALL;
 	engine->frame_details.should_render = true;
 	engine->input.active = false;
+	engine->frame_details.bounces = BOUNCES;
 	mlx_mouse_show(engine->mlx.mlx, engine->mlx.win);
 }
 

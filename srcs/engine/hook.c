@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/22 19:33:19 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:36:07 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,9 @@ int	buttonpress_hook(int button, int x, int y, t_engine *engine)
 	{
 		mlx_mouse_hide(engine->mlx.mlx, engine->mlx.win);
 		engine->frame_details.lights = NO_SHADOW;
-		engine->frame_details.pixel_size = 4;
+		engine->frame_details.pixel_size = 10;
 		engine->input.active = true;
+		engine->frame_details.bounces = 1;
 	}
 	return (SUCCESS);
 }
@@ -87,6 +88,14 @@ int	keyrelease_hook(int key, t_engine *engine)
 		engine->input.up = false;
 	else if (key == XK_Shift_L)
 		engine->input.down = false;
+	else if (key == XK_Left)
+		rotate_camera(engine, -KEY_SENSITIVITY, 0);
+	else if (key == XK_Right)
+		rotate_camera(engine, KEY_SENSITIVITY, 0);
+	else if (key == XK_Up)
+		rotate_camera(engine, 0, KEY_SENSITIVITY);
+	else if (key == XK_Down)
+		rotate_camera(engine, 0, -KEY_SENSITIVITY);
 	return (SUCCESS);
 }
 

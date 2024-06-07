@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/22 19:04:39 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:25:52 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@
 # include "display.h"
 # include "vec.h"
 
-# define MOUVEMENT_SPEED 0.1f
+# define MOUVEMENT_SPEED 0.05f
 # define SENSITIVITY 0.001f
+# define KEY_SENSITIVITY 50.0f
 
-# define BOUNCES 1
+# define BOUNCES 30
 
 # define FAILURE 1
 # define SUCCESS 0
@@ -44,6 +45,7 @@ typedef struct s_hit_payload
 	float			hit_distance;
 	t_vec3			world_position;
 	t_vec3			world_normal;
+	t_vec2			uv;
 	t_object		*object;
 }		t_hit_payload;
 
@@ -65,6 +67,7 @@ typedef struct s_engine
 	t_obj_type		types[TYPE_COUNT];
 	t_vector		objects;
 	t_vector		lights;
+	t_vector		materials;
 	t_camera		camera;
 	t_ambient		ambient;
 	t_mlx			mlx;
@@ -78,7 +81,7 @@ void			mlx_destroy_mlx(t_mlx *mlx);
 int				mlx_init_mlx(t_mlx *mlx);
 
 t_hit_payload	trace_ray(t_engine *engine, t_ray ray);
-t_vec3			compute_light_colors(t_engine *engine, t_hit_payload *payload,
+t_vec3			compute_lights_colors(t_engine *engine, t_hit_payload *payload,
 					t_ray ray);
 t_ray			init_ray(t_engine *engine, t_vec2 pos);
 
@@ -91,5 +94,13 @@ int				motion_hook(int x, int y, t_engine *engine);
 int				exit_rt(t_engine *engine, int status);
 void			camera_move(t_engine *engine);
 void			rotate_camera(t_engine *engine, int deltax, int deltay);
+
+t_vec3			disturb_world_normal(t_vec3 world_normal, t_vec3 bump_normal);
+t_ray			get_reflected_ray(t_ray ray, t_hit_payload payload);
+t_ray			get_refracted_ray(t_ray ray, t_hit_payload payload);
+t_vec3			apply_color_object(t_vec3 light_color, t_object *object,
+					t_hit_payload	*payload);
+t_vec4			trace_shadow_color(t_engine *engine, t_vec3 l_dir,
+					t_object *light, t_hit_payload *payload);
 
 #endif

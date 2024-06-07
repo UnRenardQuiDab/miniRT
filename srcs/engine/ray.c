@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/12 08:44:52 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/28 21:25:46 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
+static t_hit_payload	hit(t_engine *engine, t_hit_payload payload, t_ray ray)
 {
 	t_vec3	origin;
+	t_vec3	normal;
 
 	origin = vec3_substract(ray.origin, payload.object->position);
 	payload.world_position = vec3_add(origin,
@@ -24,6 +25,18 @@ static t_hit_payload	hit(t_hit_payload payload, t_ray ray)
 				ray, payload);
 	payload.world_position = vec3_add(payload.world_position,
 			payload.object->position);
+	if ((payload.object->material.bumpmap.addr != NULL
+			|| payload.object->material.texture.addr != NULL)
+		&& payload.object->get_uv != NULL)
+		payload.uv = payload.object->get_uv(payload.object, &payload);
+	if (engine->frame_details.lights == ALL
+		&& payload.object->material.bumpmap.addr != NULL)
+	{
+		normal = texture_get_value(&payload.object->material.bumpmap,
+				(t_color){0x7F7F7F7F}, payload.uv);
+		payload.world_normal
+			= disturb_world_normal(payload.world_normal, normal);
+	}
 	return (payload);
 }
 
@@ -59,7 +72,7 @@ t_hit_payload	trace_ray(t_engine *engine, t_ray ray)
 	}
 	if (payload.object == NULL)
 		return (miss(payload));
-	return (hit(payload, ray));
+	return (hit(engine, payload, ray));
 }
 
 t_ray	init_ray(t_engine *engine, t_vec2 pos)

@@ -6,13 +6,14 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 20:12:28 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/13 20:12:51 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine.h"
 
-float	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset)
+float	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset,
+	float radius)
 {
 	float		t;
 	t_object	obj;
@@ -28,7 +29,7 @@ float	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset)
 		p = vec3_add(ray.origin, vec3_multiply(ray.direction, t));
 		v = vec3_substract(p, obj.position);
 		d2 = vec3_dot(v, v);
-		if (d2 <= obj.specific.cylinder.radius * obj.specific.cylinder.radius)
+		if (d2 <= radius * radius)
 			return (t);
 	}
 	return (FLT_MAX);

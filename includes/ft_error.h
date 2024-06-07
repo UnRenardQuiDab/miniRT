@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:52:07 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/13 13:36:17 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/23 15:52:08 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@
 # define ERR_NO_CAMERA "No camera defined"
 # define ERR_NO_AMBIENT "No ambient light defined"
 # define ERR_MLX_INIT "Failed to initialize MLX"
+# define ERR_TEXTURE_INIT "Failed to load texture"
 # define ERR_USAGE "Usage: ./miniRT <*.rt>"
+# define ERR_MATERIAL_NOT_FOUND "Material not found"
 
 uint8_t	err(char *err);
 uint8_t	custom_error(char *err, char *msg);

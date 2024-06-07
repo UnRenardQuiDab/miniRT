@@ -6,7 +6,7 @@
 /*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 18:38:16 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/07 23:50:16 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:46:34 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,35 @@ uint8_t	ft_atov3(t_vec3 *vec, char *arg, t_range range)
 		i++;
 	}
 	ft_freesplit(split_arg);
+	return (SUCCESS);
+}
+
+uint8_t	ft_atom(t_engine *engine, t_material *material, char *arg)
+{
+	size_t		comma_count;
+	size_t		i;
+	t_material	*mat;
+
+	ft_memset(material, 0, sizeof(t_material));
+	material->opacity = 1.0f;
+	i = 0;
+	comma_count = 0;
+	while (arg[i])
+	{
+		if (arg[i] == ',')
+			comma_count++;
+		i++;
+	}
+	if (comma_count == 2)
+		return (ft_atoc(&material->color, arg));
+	else if (comma_count != 0)
+		return (custom_error(arg, ERR_VALUE_COUNT));
+	if (str_to_decimal(&i, arg, INT, rangei(INT32_MIN, INT32_MAX)) == FAILURE)
+		return (FAILURE);
+	mat = get_material(engine, i);
+	if (!mat)
+		return (custom_error(arg, ERR_MATERIAL_NOT_FOUND));
+	*material = *mat;
 	return (SUCCESS);
 }
 

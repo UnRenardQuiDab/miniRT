@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:55:45 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/10 19:01:30 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:53:18 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum u_dectype
 uint8_t	str_to_decimal(void *num, char *str, t_dectype type, t_range range);
 uint8_t	ft_atov3(t_vec3 *vec, char *arg, t_range range);
 uint8_t	ft_atoc(t_color *color, char *arg);
+uint8_t	ft_atom(t_engine *engine, t_material *material, char *arg);
 t_range	rangef(float min, float max);
 t_range	rangei(int32_t min, int32_t max);
 
