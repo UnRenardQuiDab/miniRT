@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/03 15:58:05 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:33:54 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "camera.h"
 # include "display.h"
 
-# define TYPE_COUNT 7
+# define TYPE_COUNT 8
 
 # define OBJECT_CAMERA "C"
 # define OBJECT_AMBIENT "A"
@@ -31,6 +31,7 @@
 # define OBJECT_SPHERE "sp"
 # define OBJECT_CYLINDER "cy"
 # define OBJECT_MATERIAL "M"
+# define OBJECT_CONE "co"
 
 typedef struct s_engine			t_engine;
 typedef struct s_ray			t_ray;
@@ -45,7 +46,8 @@ typedef enum e_type_index
 	SPHERE,
 	PLANE,
 	CYLINDER,
-	MATERIAL
+	MATERIAL,
+	CONE
 }	t_type_index;
 
 typedef struct s_obj_type
@@ -100,10 +102,17 @@ typedef struct s_cylinder
 	float	height;
 }	t_cylinder;
 
+typedef struct s_cone
+{
+	float	angle;
+	float	height;
+}	t_cone;
+
 typedef union u_specific
 {
 	t_sphere	sphere;
 	t_cylinder	cylinder;
+	t_cone		cone;
 	t_light		light;
 }	t_specific;
 
@@ -130,19 +139,27 @@ uint8_t		init_cylinder(t_engine *engine, char **args);
 uint8_t		init_plane(t_engine *engine, char **args);
 uint8_t		init_sphere(t_engine *engine, char **args);
 uint8_t		init_material(t_engine *engine, char **args);
+uint8_t		init_cone(t_engine *engine, char **args);
 
 float		get_hit_distance_plane(t_object *obj, t_ray ray,
 				t_hit_payload *payload);
+t_vec3		get_normal_plane(t_object *obj, t_ray ray, t_hit_payload payload);
 float		get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
 				t_hit_payload *payload);
 t_vec3		get_normal_inf_cylinder(t_object *obj, t_ray ray, float t);
 
 float		get_disk_context(float t[3], t_object *obj, t_hit_payload *payload);
-float		get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset);
+float		get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset,
+				float radius);
 
 t_material	*get_material(t_engine *engine, int32_t id);
 t_vec3		texture_get_value(t_texture *texture, t_color accent, t_vec2 uv);
+t_material	get_colored_material(t_color color);
 
 t_vec2		get_uv_inf_cylinder(t_object *obj, t_hit_payload *payload);
+
+t_vec3		calculate_normal(t_object *obj, t_ray ray, float t);
+float		choose_t_cone(t_object *obj, t_ray ray, t_hit_payload *payload,
+				float ts[3]);
 
 #endif

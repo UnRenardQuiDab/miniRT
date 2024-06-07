@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 16:21:01 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/03 15:58:25 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:32:33 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ float	get_hit_distance_cylinder(t_object *obj, t_ray ray,
 	t_vec3	hit_position;
 
 	t[1] = get_hit_distance_disk(obj, ray,
-			vec3_multiply(obj->rotation, obj->specific.cylinder.height * 0.5));
+			vec3_multiply(obj->rotation, obj->specific.cylinder.height * 0.5),
+			obj->specific.cylinder.radius);
 	t[2] = get_hit_distance_disk(obj, ray,
-			vec3_multiply(obj->rotation, -obj->specific.cylinder.height * 0.5));
+			vec3_multiply(obj->rotation, -obj->specific.cylinder.height * 0.5),
+			obj->specific.cylinder.radius);
 	t[0] = get_hit_distance_inf_cylinder(obj, ray, payload);
 	if (t[0] == FLT_MAX)
 		return (FLT_MAX);
@@ -94,7 +96,7 @@ uint8_t	init_cylinder(t_engine *engine, char **args)
 	obj.get_hit_distance = get_hit_distance_cylinder;
 	obj.get_normal = get_normal_cylinder;
 	obj.is_inside_func = is_inside_cylinder;
-	obj.get_uv = get_uv_inf_cylinder;
+	obj.get_uv = NULL;
 	if (ft_atov3(&obj.position, args[1], rangef(FLT_MIN, FLT_MAX)) == FAILURE)
 		return (FAILURE);
 	if (ft_atov3(&obj.rotation, args[2], rangef(-1.0f, 1.0f)) == FAILURE)
@@ -107,8 +109,9 @@ uint8_t	init_cylinder(t_engine *engine, char **args)
 	if (str_to_decimal(&obj.specific.cylinder.height, args[4],
 			FLOAT, rangef(0, FLT_MAX)) == FAILURE)
 		return (FAILURE);
-	if (ft_atom(engine, &obj.material, args[5]) == FAILURE)
+	if (ft_atoc(&obj.material.color, args[5]) == FAILURE)
 		return (FAILURE);
+	obj.material = get_colored_material(obj.material.color);
 	if (vector_add(&engine->objects, &obj) != 0)
 		return (err(obj.type->name));
 	return (SUCCESS);

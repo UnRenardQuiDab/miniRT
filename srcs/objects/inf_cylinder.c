@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inf_cylinder.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bwisniew <bwisniew@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 06:04:33 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/03 17:55:44 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,19 +69,4 @@ float	get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
 	if (delta[0] < delta[1])
 		return (delta[0]);
 	return (delta[1]);
-}
-
-t_vec2	get_uv_inf_cylinder(t_object *obj, t_hit_payload *payload)
-{
-	t_vec2	uv;
-	//float	phi = acos(obj->rotation.y) * 180 / M_PI;
-
-	t_mat3	rotation = mat3_rotate(obj.rotation.y, vec3_product(obj->rotation, (t_vec3){{0, 1, 0}}));
-	t_vec3	position = mat3vec3_product(vec3_substract(payload->world_position, obj->position), rotation);
-
-	float	theta = atan2(position.x, position.z);
-	float	raw_u = theta / (2 * M_PI);
-	uv.x = 1 - (raw_u + 0.5);
-	uv.y = 1 - (position.y / (obj->specific.cylinder.height) + 0.5);
-	return (uv);
 }

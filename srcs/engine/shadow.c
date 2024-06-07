@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:16:53 by lcottet           #+#    #+#             */
-/*   Updated: 2024/06/03 16:17:24 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_vec4	get_shadow_color(t_vec4 shadow_color, t_object *light, t_ray ray,
 	hit.hit_distance = hit.object->get_hit_distance(hit.object, ray, &hit);
 	hit.world_position = vec3_add(ray.origin,
 			vec3_multiply(ray.direction, hit.hit_distance));
-	hit.uv = hit.object->get_uv(hit.object, &hit);
+	if (hit.object->get_uv)
+		hit.uv = hit.object->get_uv(hit.object, &hit);
 	projected_color = apply_color_object(
 			color_to_vec3(light->material.color), hit.object, &hit);
 	shadow_color.xyz = vec3_multiply_vec(shadow_color.xyz,

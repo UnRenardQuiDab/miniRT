@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:09:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/26 19:42:22 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,17 @@ t_material	*get_material(t_engine *engine, int32_t id)
 		i++;
 	}
 	return (NULL);
+}
+
+t_material	get_colored_material(t_color color)
+{
+	t_material	material;
+
+	ft_memset(&material, 0, sizeof(t_material));
+	material.id = -1;
+	material.color = color;
+	material.opacity = 1.0f;
+	return (material);
 }
 
 uint8_t	init_material(t_engine *engine, char **args)
