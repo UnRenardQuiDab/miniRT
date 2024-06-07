@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/23 13:23:04 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/05/27 11:24:39 by bwisniew         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 void	mlx_hooks(t_mlx *mlx)
 {
 	mlx_loop_hook(mlx->mlx, loop_hook, mlx->engine);
-	mlx_hook(mlx->win, DestroyNotify, NoEventMask, mlx_loop_end, mlx);
+	mlx_hook(mlx->win, DestroyNotify, NoEventMask, mlx_loop_end, mlx->mlx);
 	mlx_hook(mlx->win, KeyPress, KeyPressMask, keypress_hook, mlx->engine);
 	mlx_hook(mlx->win, KeyRelease, KeyReleaseMask,
 		keyrelease_hook, mlx->engine);
