@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 16:55:47 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/05/27 11:24:39 by bwisniew         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:42:55 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,12 @@ void	mlx_destroy_mlx(t_mlx *mlx)
 		mlx_destroy_display(mlx->mlx);
 		free(mlx->mlx);
 	}
+}
+
+void	material_destroy_images(t_engine *engine, t_material *material)
+{
+	if (material->texture.mlx_img != NULL)
+		mlx_destroy_image(engine->mlx.mlx, material->texture.mlx_img);
+	if (material->bumpmap.mlx_img != NULL)
+		mlx_destroy_image(engine->mlx.mlx, material->bumpmap.mlx_img);
 }
