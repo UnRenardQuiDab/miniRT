@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/03 16:25:52 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/11 12:43:55 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,6 @@ t_vec3			apply_color_object(t_vec3 light_color, t_object *object,
 					t_hit_payload	*payload);
 t_vec4			trace_shadow_color(t_engine *engine, t_vec3 l_dir,
 					t_object *light, t_hit_payload *payload);
+void			material_destroy_images(t_engine *engine, t_material *material);
 
 #endif

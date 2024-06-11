@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:09:10 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/06/11 12:38:12 by lcottet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ uint8_t	init_material(t_engine *engine, char **args)
 	if (init_texture(args[3], &material.texture, engine) == FAILURE)
 		return (custom_error(args[3], ERR_TEXTURE_INIT));
 	if (init_texture(args[4], &material.bumpmap, engine) == FAILURE)
-		return (mlx_destroy_image(engine->mlx.mlx, material.texture.mlx_img),
+		return (material_destroy_images(engine, &material),
 			custom_error(args[4], ERR_TEXTURE_INIT));
 	if (vector_add(&engine->materials, &material))
-		return (FAILURE);
+		return (material_destroy_images(engine, &material), FAILURE);
 	return (SUCCESS);
 }
