@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:16:53 by lcottet           #+#    #+#             */
-/*   Updated: 2024/09/04 00:10:38 by lcottet          ###   ########lyon.fr   */
+/*   Updated: 2024/09/04 00:26:30 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ t_vec4	trace_shadow_color(t_engine *engine, t_vec3 l_dir,
 		}
 		i++;
 	}
-	shadow_color.xyz = vec3_multiply(shadow_color.xyz, 1.0f - shadow_color.w);
+	shadow_color.xyz = vec3_multiply(vec3_multiply_vec(shadow_color.xyz,
+				color_to_vec3(light->material.color)), 1.0f - shadow_color.w);
 	return (shadow_color);
 }
