@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:16:53 by lcottet           #+#    #+#             */
-/*   Updated: 2024/09/03 23:50:54 by lcottet          ###   ########lyon.fr   */
+/*   Updated: 2024/09/04 00:10:38 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ t_vec4	get_shadow_color(t_vec4 shadow_color, t_object *light, t_ray ray,
 	projected_color = vec3_multiply(projected_color,
 			hit.object->material.opacity);
 	shadow_color.xyz = vec3_add(shadow_color.xyz, projected_color);
-	if (hit.object->material.opacity < 1.0f)
-		shadow_color.w = 1.0f - (1.0f - shadow_color.w)
-			* (1.0f - hit.object->material.opacity);
+	shadow_color.w = 1.0f - (1.0f - shadow_color.w)
+		* (1.0f - hit.object->material.opacity);
 	return (shadow_color);
 }
 
