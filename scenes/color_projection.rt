@@ -1,8 +1,9 @@
-M 1 255,255,255 ./assets/textures/earth_8k.xpm ./assets/normals/earth_8k_normal.xpm 0 0.5 0.9
-M 2 120,120,120 NONE ./assets/normals/test_normal.xpm 0.2 0.7 0.9
+M 1 255,255,255 ./assets/textures/earth_8k.xpm ./assets/normals/earth_8k_normal.xpm 0 0.8 0.9
+M 2 120,120,120 ./assets/textures/checker.xpm NONE 0.2 0.5 0.9
 A 0.1 255,255,255
 C -1,0,0 1,0,1 80
 L 0,2,2 1 255,255,255
+L 0,2,5 1 255,255,255
 
 sp 0,0,5 1 1
 
@@ -11,3 +12,4 @@ sp 0,1,0 1 1
 pl 0,-0.5,0 0,1,0 255,255,255
 
 pl 0,0,3 0,0,1 2
+pl 0,0,3.2 0,0,1 2
