@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:16:53 by lcottet           #+#    #+#             */
-/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/09/03 23:50:54 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ t_vec4	get_shadow_color(t_vec4 shadow_color, t_object *light, t_ray ray,
 		hit.uv = hit.object->get_uv(hit.object, &hit);
 	projected_color = apply_color_object(
 			color_to_vec3(light->material.color), hit.object, &hit);
-	shadow_color.xyz = vec3_multiply_vec(shadow_color.xyz,
-			vec3_multiply(projected_color,
-				1.0f - hit.object->material.opacity));
-	if (shadow_color.w < hit.object->material.opacity)
-		shadow_color.w = hit.object->material.opacity;
+	projected_color = vec3_multiply(projected_color,
+			hit.object->material.opacity);
+	shadow_color.xyz = vec3_add(shadow_color.xyz, projected_color);
+	if (hit.object->material.opacity < 1.0f)
+		shadow_color.w = 1.0f - (1.0f - shadow_color.w)
+			* (1.0f - hit.object->material.opacity);
 	return (shadow_color);
 }
 
@@ -59,5 +60,6 @@ t_vec4	trace_shadow_color(t_engine *engine, t_vec3 l_dir,
 		}
 		i++;
 	}
+	shadow_color.xyz = vec3_multiply(shadow_color.xyz, 1.0f - shadow_color.w);
 	return (shadow_color);
 }
