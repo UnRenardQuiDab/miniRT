@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/09/04 18:05:38 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,12 @@ t_vec3	compute_light_color(t_engine *engine, t_object *l,
 	t_vec4	shadow;
 	t_vec3	l_dir;
 
-	color = (t_vec3){{0.0f, 0.0f, 0.0f}};
 	l_dir = vec3_normalize(
 			vec3_substract(payload->world_position, l->position));
-	color = vec3_add(color, compute_normal_lighting(l, payload, l_dir, ray));
+	color = compute_normal_lighting(l, payload, l_dir, ray);
 	shadow = trace_shadow_color(engine, l_dir, l, payload);
-	if (color.x == 0 && color.y == 0 && color.z == 0)
-		shadow.w *= 1.0f - payload->object->material.opacity;
-	color = vec3_multiply(color, 1.0f - shadow.w);
-	color = vec3_add(color, vec3_multiply(shadow.xyz, shadow.w));
+	color = vec3_multiply(color, shadow.w);
+	color = vec3_multiply_vec(color, shadow.xyz);
 	return (color);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:16:53 by lcottet           #+#    #+#             */
-/*   Updated: 2024/09/04 00:26:30 by lcottet          ###   ########lyon.fr   */
+/*   Updated: 2024/09/04 18:02:20 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ t_vec4	get_shadow_color(t_vec4 shadow_color, t_object *light, t_ray ray,
 			vec3_multiply(ray.direction, hit.hit_distance));
 	if (hit.object->get_uv)
 		hit.uv = hit.object->get_uv(hit.object, &hit);
-	projected_color = apply_color_object(
-			color_to_vec3(light->material.color), hit.object, &hit);
+	projected_color = texture_get_value(&hit.object->material.texture,
+			hit.object->material.color, hit.uv);
 	projected_color = vec3_multiply(projected_color,
 			hit.object->material.opacity);
 	shadow_color.xyz = vec3_add(shadow_color.xyz, projected_color);
-	shadow_color.w = 1.0f - (1.0f - shadow_color.w)
-		* (1.0f - hit.object->material.opacity);
+	shadow_color.w *= 1.0f - hit.object->material.opacity;
 	return (shadow_color);
 }
 
@@ -47,7 +46,7 @@ t_vec4	trace_shadow_color(t_engine *engine, t_vec3 l_dir,
 			vec3_multiply(l_dir, -0.001f)), vec3_multiply(l_dir, -1.0f)};
 	i = 0;
 	light_distance = vec3_dist_sqr(light->position, payload->world_position);
-	shadow_color = (t_vec4){{1.0f, 1.0f, 1.0f, 0.0f}};
+	shadow_color = (t_vec4){{1.0f, 1.0f, 1.0f, 1.0f}};
 	while (i < engine->objects.len && engine->frame_details.lights == ALL)
 	{
 		hit.object = (t_object *)engine->objects.tab + i;
@@ -59,7 +58,5 @@ t_vec4	trace_shadow_color(t_engine *engine, t_vec3 l_dir,
 		}
 		i++;
 	}
-	shadow_color.xyz = vec3_multiply(vec3_multiply_vec(shadow_color.xyz,
-				color_to_vec3(light->material.color)), 1.0f - shadow_color.w);
 	return (shadow_color);
 }
