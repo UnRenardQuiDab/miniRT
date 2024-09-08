@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 17:51:41 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/11 12:43:55 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/09/08 22:53:23 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_ray
 typedef struct s_hit_payload
 {
 	float			hit_distance;
+	t_ray			ray;
 	t_vec3			world_position;
 	t_vec3			world_normal;
 	t_vec2			uv;
