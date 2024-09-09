@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 17:10:01 by lcottet           #+#    #+#             */
-/*   Updated: 2024/05/28 21:25:46 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/09/08 22:57:14 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ t_hit_payload	trace_ray(t_engine *engine, t_ray ray)
 	float			current_dist;
 	t_object		*obj;
 
+	payload.ray = ray;
 	payload.hit_distance = FLT_MAX;
 	payload.object = NULL;
 	i = 0;
 	while (i < engine->objects.len)
 	{
-		obj = ((t_object *)engine->objects.tab) + i;
+		obj = ((t_object *)engine->objects.tab) + i++;
 		snapshot = payload;
 		current_dist = obj->get_hit_distance(obj, ray, &snapshot);
 		if (current_dist < payload.hit_distance && current_dist > 0.0f)
@@ -68,7 +69,6 @@ t_hit_payload	trace_ray(t_engine *engine, t_ray ray)
 			payload.object = obj;
 			payload.hit_distance = current_dist;
 		}
-		i++;
 	}
 	if (payload.object == NULL)
 		return (miss(payload));
