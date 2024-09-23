@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 16:16:53 by lcottet           #+#    #+#             */
-/*   Updated: 2024/09/08 22:56:16 by lcottet          ###   ########lyon.fr   */
+/*   Updated: 2024/09/23 20:23:11 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vec4	trace_shadow_color(t_engine *engine, t_vec3 l_dir,
 	float			light_distance;
 
 	ray = (t_ray){vec3_add(payload->world_position,
-			vec3_multiply(payload->ray.direction, -0.00001f)),
+			vec3_multiply(payload->ray.direction, -0.001f)),
 		vec3_multiply(l_dir, -1.0f)};
 	i = 0;
 	light_distance = vec3_dist_sqr(light->position, payload->world_position);
@@ -53,7 +53,7 @@ t_vec4	trace_shadow_color(t_engine *engine, t_vec3 l_dir,
 		hit.object = (t_object *)engine->objects.tab + i;
 		hit.hit_distance = hit.object->get_hit_distance(hit.object, ray, &hit);
 		if (hit.hit_distance >= 0
-			&& hit.hit_distance * hit.hit_distance <= light_distance)
+			&& hit.hit_distance * hit.hit_distance <= light_distance + 0.001f)
 		{
 			shadow_color = get_shadow_color(shadow_color, light, ray, hit);
 		}
