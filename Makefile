@@ -6,7 +6,7 @@
 #    By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/03 18:00:16 by bwisniew          #+#    #+#              #
-#    Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr        #
+#    Updated: 2024/11/21 16:12:37 by lcottet          ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJECTS_SRCS =	camera.c ambient.c cylinder.c light.c plane.c sphere.c inf_cylind
 
 DISPLAY_SRCS =	render.c thread.c frame.c frame_time.c render_sync.c
 
-VEC_SRCS =	dot.c add.c product.c multiply.c divide.c substract.c normalize.c reflect.c color.c dist.c refract.c
+VEC_SRCS =	dot.c add.c product.c multiply.c divide.c substract.c normalize.c reflect.c color.c dist.c refract.c cap.c
 
 FILE_SRCS = parsing.c init.c conversion.c range.c
 

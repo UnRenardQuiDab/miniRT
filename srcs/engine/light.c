@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 07:33:19 by lcottet           #+#    #+#             */
-/*   Updated: 2024/09/04 18:05:38 by lcottet          ###   ########lyon.fr   */
+/*   Updated: 2024/11/21 16:11:53 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ t_vec3	compute_lights_colors(t_engine *engine, t_hit_payload *payload,
 		light = (t_object *)engine->lights.tab + i++;
 		curr_color = compute_light_color(engine, light, payload, ray);
 		total_color = vec3_add(total_color, curr_color);
+		total_color = vec3_cap(total_color, 0, 1);
 	}
 	return (apply_color_object(total_color, payload->object, payload));
 }
