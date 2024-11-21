@@ -6,7 +6,7 @@
 /*   By: lcottet <lcottet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 20:29:49 by bwisniew          #+#    #+#             */
-/*   Updated: 2024/06/07 19:37:47 by lcottet          ###   ########.fr       */
+/*   Updated: 2024/11/21 16:13:53 by lcottet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ t_vec3	color_to_vec3(t_color color);
 t_vec4	mat4vec4_product(t_vec4 vec, t_mat4 mat);
 t_vec3	mat3vec3_product(t_vec3 vec, t_mat3 mat);
 t_color	vec3_to_color(t_vec3 vec);
+t_vec3	vec3_cap(t_vec3 vec, float min, float max);
 
 #endif
