@@ -16,7 +16,7 @@
 #include "file.h"
 #include "engine.h"
 
-//str_to_decimal(&float, str, DEC_FLOAT);
+//str_to_decimal(&double, str, DEC_FLOAT);
 //str_to_decmial(&int, str, DEC_INT);
 static uint8_t	is_str_valid(char *str, t_dectype type)
 {
@@ -49,9 +49,9 @@ uint8_t	str_to_decimal(void *num, char *str, t_dectype type, t_range range)
 	}
 	if (type == FLOAT)
 	{
-		*((float *) num) = ft_atof(str);
-		if (*((float *) num) < range.t_float.min
-			|| *((float *) num) > range.t_float.max)
+		*((double *) num) = ft_atof(str);
+		if (*((double *) num) < range.t_double.min
+			|| *((double *) num) > range.t_double.max)
 			return (custom_error(str, ERR_RANGE));
 	}
 	else if (type == INT)

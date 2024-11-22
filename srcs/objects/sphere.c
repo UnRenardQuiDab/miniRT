@@ -17,14 +17,14 @@
 #include "file.h"
 #include "libft.h"
 
-float	get_hit_distance_sphere(t_object *obj, t_ray ray,
+double	get_hit_distance_sphere(t_object *obj, t_ray ray,
 	t_hit_payload *payload)
 {
 	t_vec3		ray_origin;
-	float		a;
-	float		b;
-	float		c;
-	float		discriminant;
+	double		a;
+	double		b;
+	double		c;
+	double		discriminant;
 
 	(void)payload;
 	ray_origin = vec3_substract(ray.origin, obj->position);

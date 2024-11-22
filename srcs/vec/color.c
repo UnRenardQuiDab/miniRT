@@ -30,8 +30,8 @@ t_color	vec3_to_color(t_vec3 vec)
 t_vec3	color_to_vec3(t_color color)
 {
 	return ((t_vec3){{
-			(float) color.r / 255.0f,
-			(float) color.g / 255.0f,
-			(float) color.b / 255.0f
+			(double) color.r / 255.0f,
+			(double) color.g / 255.0f,
+			(double) color.b / 255.0f
 		}});
 }

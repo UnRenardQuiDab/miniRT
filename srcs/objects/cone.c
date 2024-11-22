@@ -15,12 +15,12 @@
 #include "ft_error.h"
 #include <math.h>
 
-bool	calculate_t_cone(t_object *obj, t_ray ray, float t[3])
+bool	calculate_t_cone(t_object *obj, t_ray ray, double t[3])
 {
-	float	abc[3];
-	float	cosa;
+	double	abc[3];
+	double	cosa;
 	t_vec3	co;
-	float	det;
+	double	det;
 
 	cosa = cosf(obj->specific.cone.angle * M_PI / 180.0f);
 	co = vec3_substract(ray.origin, obj->position);
@@ -42,10 +42,10 @@ bool	calculate_t_cone(t_object *obj, t_ray ray, float t[3])
 	return (true);
 }
 
-float	get_hit_distance_cone(t_object *obj, t_ray ray, t_hit_payload *payload)
+double	get_hit_distance_cone(t_object *obj, t_ray ray, t_hit_payload *payload)
 {
-	float	ts[3];
-	float	t;
+	double	ts[3];
+	double	t;
 
 	if (calculate_t_cone(obj, ray, ts) == false)
 		return (FLT_MAX);
@@ -65,9 +65,9 @@ t_vec3	get_normal_cone(t_object *obj, t_ray ray, t_hit_payload payload)
 
 bool	is_inside_cone(t_object *obj, t_vec3 origin)
 {
-	float	curr_radius;
+	double	curr_radius;
 	t_vec3	cp;
-	float	h;
+	double	h;
 
 	cp = vec3_substract(origin, obj->position);
 	h = vec3_dot(cp, obj->rotation);

@@ -12,7 +12,7 @@
 
 #include "vec.h"
 
-t_vec3	vec3_multiply(t_vec3 a, float b)
+t_vec3	vec3_multiply(t_vec3 a, double b)
 {
 	return ((t_vec3){{a.x * b, a.y * b, a.z * b}});
 }

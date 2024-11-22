@@ -15,10 +15,10 @@
 #include "matrix.h"
 #include "vec.h"
 
-t_mat3	mat3_rotate(float angle, t_vec3 vec)
+t_mat3	mat3_rotate(double angle, t_vec3 vec)
 {
-	float	cosine;
-	float	sine;
+	double	cosine;
+	double	sine;
 	t_mat3	rotation;
 
 	cosine = cos(angle);
@@ -35,10 +35,10 @@ t_mat3	mat3_rotate(float angle, t_vec3 vec)
 	return (rotation);
 }
 
-t_mat4	mat4_rotate(t_mat4 mat, float angle, t_vec3 vec)
+t_mat4	mat4_rotate(t_mat4 mat, double angle, t_vec3 vec)
 {
-	float	cosine;
-	float	sine;
+	double	cosine;
+	double	sine;
 	t_mat4	rotation;
 
 	cosine = cos(angle);

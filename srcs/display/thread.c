@@ -62,7 +62,7 @@ int8_t	init_frame_detais(t_engine *engine)
 	return (SUCCESS);
 }
 
-int8_t	create_thread(t_engine *engine, float starty, float endy,
+int8_t	create_thread(t_engine *engine, double starty, double endy,
 	t_thread *thread)
 {
 	thread->engine = engine;
