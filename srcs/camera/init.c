@@ -22,7 +22,7 @@ void	project_camera(t_camera *camera)
 {
 	camera->rad_fov = tanf((camera->fov * M_PI / 180.0f) / 2.0f);
 	camera->up = (t_vec3){{0, 1, 0}};
-	camera->aspect_ratio = (float)WIDTH / (float)HEIGHT;
+	camera->aspect_ratio = (double)WIDTH / (double)HEIGHT;
 	camera->far = Z_FAR;
 	camera->near = Z_NEAR;
 	camera->view = mat4_init(0.0f);

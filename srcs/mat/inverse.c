@@ -128,7 +128,7 @@ t_mat4	mat4_inverse(t_mat4 m)
 {
 	t_mat4	inv;
 	t_mat4	inv_out;
-	float	det;
+	double	det;
 	int		i;
 
 	mat4_inverse_col1(m, &inv);

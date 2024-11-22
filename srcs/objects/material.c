@@ -19,9 +19,9 @@
 //	t_color		color;
 //	t_texture	texture;
 //	t_texture	bumpmap;
-//	float		reflection;
-//	float		opacity;
-//	float		refraction;
+//	double		reflection;
+//	double		opacity;
+//	double		refraction;
 
 t_vec3	texture_get_value(t_texture *texture, t_color accent, t_vec2 uv)
 {

@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-t_vec3	get_normal_inf_cylinder(t_object *obj, t_ray ray, float t)
+t_vec3	get_normal_inf_cylinder(t_object *obj, t_ray ray, double t)
 {
 	t_vec3	ra;
 	t_vec3	va;
@@ -33,8 +33,8 @@ t_vec3	get_quadri_cylindre(t_object *obj, t_ray ray)
 {
 	t_vec3	abc;
 	t_vec3	oc;
-	float	dot_dir_rotation;
-	float	dot_oc_rotation;
+	double	dot_dir_rotation;
+	double	dot_oc_rotation;
 
 	oc = vec3_substract(ray.origin, obj->position);
 	dot_oc_rotation = vec3_dot(oc, obj->rotation);
@@ -48,13 +48,13 @@ t_vec3	get_quadri_cylindre(t_object *obj, t_ray ray)
 	return (abc);
 }
 
-float	get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
+double	get_hit_distance_inf_cylinder(t_object *obj, t_ray ray,
 	t_hit_payload *payload)
 {
 	t_vec3	abc;
-	float	discriminant;
-	float	sqrt_discriminant;
-	float	delta[2];
+	double	discriminant;
+	double	sqrt_discriminant;
+	double	delta[2];
 
 	(void)payload;
 	abc = get_quadri_cylindre(obj, ray);

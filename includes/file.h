@@ -22,11 +22,11 @@ typedef union u_range
 		int32_t	min;
 		int32_t	max;
 	}	t_int;
-	struct s_float
+	struct s_double
 	{
-		float	min;
-		float	max;
-	}	t_float;
+		double	min;
+		double	max;
+	}	t_double;
 }	t_range;
 
 typedef enum u_dectype
@@ -39,7 +39,7 @@ uint8_t	str_to_decimal(void *num, char *str, t_dectype type, t_range range);
 uint8_t	ft_atov3(t_vec3 *vec, char *arg, t_range range);
 uint8_t	ft_atoc(t_color *color, char *arg);
 uint8_t	ft_atom(t_engine *engine, t_material *material, char *arg);
-t_range	rangef(float min, float max);
+t_range	rangef(double min, double max);
 t_range	rangei(int32_t min, int32_t max);
 
 void	init_engine(t_engine *engine);

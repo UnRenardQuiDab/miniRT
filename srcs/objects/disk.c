@@ -12,14 +12,14 @@
 
 #include "engine.h"
 
-float	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset,
-	float radius)
+double	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset,
+	double radius)
 {
-	float		t;
+	double		t;
 	t_object	obj;
 	t_vec3		p;
 	t_vec3		v;
-	float		d2;
+	double		d2;
 
 	obj = *oldobj;
 	obj.position = vec3_add(obj.position, offset);
@@ -35,7 +35,7 @@ float	get_hit_distance_disk(t_object *oldobj, t_ray ray, t_vec3 offset,
 	return (FLT_MAX);
 }
 
-float	get_disk_context(float t[3], t_object *obj, t_hit_payload *payload)
+double	get_disk_context(double t[3], t_object *obj, t_hit_payload *payload)
 {
 	if (t[1] < t[2] && t[1] != FLT_MAX)
 	{

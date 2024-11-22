@@ -12,9 +12,9 @@
 
 #include "engine.h"
 
-t_vec3	calculate_normal(t_object *obj, t_ray ray, float t)
+t_vec3	calculate_normal(t_object *obj, t_ray ray, double t)
 {
-	float	dot_cp;
+	double	dot_cp;
 	t_vec3	cp;
 
 	cp = vec3_substract(vec3_add(ray.origin, vec3_multiply(ray.direction, t)),
@@ -26,11 +26,11 @@ t_vec3	calculate_normal(t_object *obj, t_ray ray, float t)
 			obj->rotation)));
 }
 
-float	choose_t_cone(t_object *obj, t_ray ray, t_hit_payload *payload,
-		float ts[3])
+double	choose_t_cone(t_object *obj, t_ray ray, t_hit_payload *payload,
+		double ts[3])
 {
-	float	t;
-	float	h;
+	double	t;
+	double	h;
 	t_vec3	cp;
 
 	t = ts[0];

@@ -12,7 +12,7 @@
 
 #include "vec.h"
 
-t_vec3	vec3_cap(t_vec3 vec, float min, float max)
+t_vec3	vec3_cap(t_vec3 vec, double min, double max)
 {
 	uint8_t	i;
 

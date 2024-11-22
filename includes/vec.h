@@ -23,40 +23,40 @@ typedef union u_vec2
 {
 	struct
 	{
-		float	x;
-		float	y;
+		double	x;
+		double	y;
 	};
-	float	arr[2];
+	double	arr[2];
 }	t_vec2;
 
 typedef union u_vec3
 {
 	struct
 	{
-		float	x;
-		float	y;
-		float	z;
+		double	x;
+		double	y;
+		double	z;
 	};
 	t_vec2	xy;
-	float	arr[3];
+	double	arr[3];
 }	t_vec3;
 
 typedef union u_vec4
 {
 	struct
 	{
-		float	x;
-		float	y;
-		float	z;
-		float	w;
+		double	x;
+		double	y;
+		double	z;
+		double	w;
 	};
 	t_vec3	xyz;
-	float	arr[4];
+	double	arr[4];
 }	t_vec4;
 
-float	vec3_dot(t_vec3 a, t_vec3 b);
-float	vec3_dist_sqr(t_vec3 a, t_vec3 b);
-t_vec3	vec3_multiply(t_vec3 a, float b);
+double	vec3_dot(t_vec3 a, t_vec3 b);
+double	vec3_dist_sqr(t_vec3 a, t_vec3 b);
+t_vec3	vec3_multiply(t_vec3 a, double b);
 t_vec3	vec3_divide(t_vec3 a, t_vec3 b);
 t_vec3	vec3_multiply_vec(t_vec3 a, t_vec3 b);
 t_vec3	vec3_product(t_vec3 a, t_vec3 b);
@@ -64,11 +64,11 @@ t_vec3	vec3_add(t_vec3 a, t_vec3 b);
 t_vec3	vec3_substract(t_vec3 a, t_vec3 b);
 t_vec3	vec3_normalize(t_vec3 a);
 t_vec3	vec3_reflect(t_vec3 incident, t_vec3 normal);
-t_vec3	vec3_refract(t_vec3 ray_dir, t_vec3 normal, float refract);
+t_vec3	vec3_refract(t_vec3 ray_dir, t_vec3 normal, double refract);
 t_vec3	color_to_vec3(t_color color);
 t_vec4	mat4vec4_product(t_vec4 vec, t_mat4 mat);
 t_vec3	mat3vec3_product(t_vec3 vec, t_mat3 mat);
 t_color	vec3_to_color(t_vec3 vec);
-t_vec3	vec3_cap(t_vec3 vec, float min, float max);
+t_vec3	vec3_cap(t_vec3 vec, double min, double max);
 
 #endif

@@ -29,8 +29,8 @@ t_vec3	apply_color_object(t_vec3 light_color, t_object *object,
 t_vec3	compute_normal_lighting(t_object *light, t_hit_payload *payload,
 	t_vec3 light_dir, t_ray ray)
 {
-	float	flight;
-	float	specular;
+	double	flight;
+	double	specular;
 
 	flight = vec3_dot(payload->world_normal,
 			vec3_multiply(light_dir,

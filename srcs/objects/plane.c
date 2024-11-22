@@ -17,10 +17,10 @@
 #include "ft_error.h"
 #include "file.h"
 
-float	get_hit_distance_plane(t_object *obj, t_ray ray, t_hit_payload *payload)
+double	get_hit_distance_plane(t_object *obj, t_ray ray, t_hit_payload *payload)
 {
-	float		t;
-	float		discriment;
+	double		t;
+	double		discriment;
 
 	(void)payload;
 	discriment = vec3_dot(ray.direction, obj->rotation);
@@ -43,7 +43,7 @@ static t_vec3	get_u_plane(t_object *obj)
 {
 	t_vec3	normal;
 	t_vec3	u;
-	float	d;
+	double	d;
 
 	normal = obj->rotation;
 	d = -normal.x * obj->position.x - normal.y * obj->position.y - normal.z

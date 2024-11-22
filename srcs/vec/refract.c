@@ -13,11 +13,11 @@
 #include <math.h>
 #include "vec.h"
 
-t_vec3	vec3_refract(t_vec3 ray_dir, t_vec3 normal, float refract)
+t_vec3	vec3_refract(t_vec3 ray_dir, t_vec3 normal, double refract)
 {
 	t_vec3	refracted;
-	float	cos_theta;
-	float	sin_theta;
+	double	cos_theta;
+	double	sin_theta;
 
 	cos_theta = -vec3_dot(ray_dir, normal);
 	sin_theta = sqrt(1 - refract * refract * (1 - cos_theta * cos_theta));

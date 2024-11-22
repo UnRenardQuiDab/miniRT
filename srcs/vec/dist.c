@@ -12,7 +12,7 @@
 
 #include "vec.h"
 
-float	vec3_dist_sqr(t_vec3 a, t_vec3 b)
+double	vec3_dist_sqr(t_vec3 a, t_vec3 b)
 {
 	return ((a.x - b.x) * (a.x - b.x)
 		+ (a.y - b.y) * (a.y - b.y)
