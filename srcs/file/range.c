@@ -12,12 +12,12 @@
 
 #include "file.h"
 
-t_range	rangef(float min, float max)
+t_range	rangef(double min, double max)
 {
 	t_range	range;
 
-	range.t_float.min = min;
-	range.t_float.max = max;
+	range.t_double.min = min;
+	range.t_double.max = max;
 	return (range);
 }
 

@@ -13,7 +13,7 @@
 #include "matrix.h"
 #include "libft.h"
 
-t_mat3	mat3_init(float a)
+t_mat3	mat3_init(double a)
 {
 	t_mat3	mat;
 
@@ -25,7 +25,7 @@ t_mat3	mat3_init(float a)
 	return (mat);
 }
 
-t_mat4	mat4_init(float a)
+t_mat4	mat4_init(double a)
 {
 	return ((t_mat4){{
 			a, a, a, a,

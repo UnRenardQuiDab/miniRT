@@ -40,8 +40,8 @@ typedef enum e_light_lod
 typedef struct s_thread
 {
 	t_engine		*engine;
-	float			starty;
-	float			endy;
+	double			starty;
+	double			endy;
 	pthread_t		thread_id;
 }	t_thread;
 

@@ -15,7 +15,7 @@
 
 t_vec3	vec3_normalize(t_vec3 a)
 {
-	float	length;
+	double	length;
 
 	length = sqrt(vec3_dot(a, a));
 	return ((t_vec3){{a.x / length, a.y / length, a.z / length}});

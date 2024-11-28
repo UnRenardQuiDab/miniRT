@@ -19,7 +19,7 @@ bool	is_inside_cylinder(t_object *obj, t_vec3 origin)
 {
 	t_vec3		translate_center;
 	t_object	plane;
-	float		h;
+	double		h;
 
 	plane.position = origin;
 	plane.rotation = obj->rotation;
@@ -36,7 +36,7 @@ bool	is_inside_cylinder(t_object *obj, t_vec3 origin)
 		< obj->specific.cylinder.radius * obj->specific.cylinder.radius);
 }
 
-float	get_hit_distance_in_cylinder(float t[3], t_object *obj, t_ray ray,
+double	get_hit_distance_in_cylinder(double t[3], t_object *obj, t_ray ray,
 	t_hit_payload *payload)
 {
 	if (t[0] < t[1] && t[0] < t[2])
@@ -53,10 +53,10 @@ float	get_hit_distance_in_cylinder(float t[3], t_object *obj, t_ray ray,
 	return (t[2]);
 }
 
-float	get_hit_distance_cylinder(t_object *obj, t_ray ray,
+double	get_hit_distance_cylinder(t_object *obj, t_ray ray,
 	t_hit_payload *payload)
 {
-	float	t[3];
+	double	t[3];
 	t_vec3	hit_position;
 
 	t[1] = get_hit_distance_disk(obj, ray,

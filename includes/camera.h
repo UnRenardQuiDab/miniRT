@@ -23,10 +23,10 @@ typedef struct s_camera
 	int32_t		fov;
 	t_mat4		projection;
 	t_mat4		view;
-	float		rad_fov;
-	float		far;
-	float		near;
-	float		aspect_ratio;
+	double		rad_fov;
+	double		far;
+	double		near;
+	double		aspect_ratio;
 }				t_camera;
 
 void	project_camera(t_camera *camera);

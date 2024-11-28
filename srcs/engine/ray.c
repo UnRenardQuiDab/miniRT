@@ -51,7 +51,7 @@ t_hit_payload	trace_ray(t_engine *engine, t_ray ray)
 	t_hit_payload	payload;
 	t_hit_payload	snapshot;
 	size_t			i;
-	float			current_dist;
+	double			current_dist;
 	t_object		*obj;
 
 	payload.ray = ray;
