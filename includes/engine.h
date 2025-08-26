@@ -24,7 +24,7 @@
 
 # define FLT_EPSILON 1.19209290e-07F
 
-# define MOUVEMENT_SPEED 0.05f
+# define MOUVEMENT_SPEED 5.0f
 # define SENSITIVITY 0.001f
 # define KEY_SENSITIVITY 50.0f
 
